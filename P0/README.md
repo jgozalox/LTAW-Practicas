@@ -67,3 +67,13 @@ Aquí hay información sobre [los enlaces](#Enlaces) en markdwon
 ## Imagen en URL
 
 ![](https://upload.wikimedia.org/wikipedia/commons/2/2f/CC_BY-SA_3.0.png)
+
+ Citas
+
+ Citas
+
+Un par de citas de Isaac Asimov:
+
+> Escribo por la misma razón por la que respiro, porque si no lo hiciera, moriría
+
+> Estoy convencido de que la autoeducación es el único tipo de educación que existe

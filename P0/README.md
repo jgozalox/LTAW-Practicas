@@ -35,3 +35,11 @@ Pasos a seguir:
 *texto en cursiva*
 
 **texto en negrita**
+
+
+```
+# -- Ejemplo de código en python
+a = 2
+print("Programa en python")
+print(f"La variable a vale {a}")
+```

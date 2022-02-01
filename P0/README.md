@@ -37,9 +37,11 @@ Pasos a seguir:
 **texto en negrita**
 
 
-```
+```python
 # -- Ejemplo de código en python
 a = 2
 print("Programa en python")
 print(f"La variable a vale {a}")
 ```
+
+En python la expresión `print(f" a + b = {2 + 1} ")` produce como resultado `a + b = 3`

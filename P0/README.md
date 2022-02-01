@@ -77,3 +77,11 @@ Un par de citas de Isaac Asimov:
 > Escribo por la misma razón por la que respiro, porque si no lo hiciera, moriría
 
 > Estoy convencido de que la autoeducación es el único tipo de educación que existe
+
+# Tabla
+
+|         | Col 1 | Col 2| Col 3| Col4 |
+|---------|-------|------|------|------|
+|  Fila 1 |   1   |   2  |   3  |  4   |
+|  Fila 2 |   2   |   4  |   6  |  8   |
+|  Fila 3 |   3   |   6  |   9  |  12  |

@@ -25,3 +25,13 @@ Pasos a seguir:
 1. Eat
 2. Sleep
 3. Repeat
+
+
+# Resaltado de texto
+
+*texto en cursiva*
+**texto en negrita**
+
+*texto en cursiva*
+
+**texto en negrita**

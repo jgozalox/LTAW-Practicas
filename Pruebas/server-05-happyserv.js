@@ -9,9 +9,11 @@ const server = http.createServer((req, res) => {
   //-- Indicamos que se ha recibido una petición
   console.log("Petición recibida!");
 
-  //-- Enviar una respuesta:. Siempre es la misma respuesta
-  //-- Con el método res.write() se escribe el mensaje en el 
-  //-- cuerpo de la respuesta
+  //-- Cabecera que indica el tipo de datos del
+  //-- cuerpo de la respuesta: Texto plano
+  res.setHeader('Content-Type', 'text/plain');
+
+  //-- Mensaje del cuerpo
   res.write("Soy el Happy server!!\n");
 
   //-- Terminar la respuesta y enviarla

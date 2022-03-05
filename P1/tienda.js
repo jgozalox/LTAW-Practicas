@@ -63,10 +63,12 @@ const server = http.createServer((req, res)=>{
 
     //print_info_req(req);
 
+    
+
     //-- Valores de la respuesta por defecto
     let code = 200;
     let code_msg = "OK";
-    
+    let page = pagina_main;
 
     //-- Analizar el recurso
     //-- Construir el objeto url con la url de la solicitud
@@ -87,11 +89,10 @@ const server = http.createServer((req, res)=>{
     res.statusCode = code;
     res.statusMessage = code_msg;
     res.setHeader('Content-Type','text/html');
-    let page = pagina_main;
     res.write(page);
     res.end();
 });
 
 server.listen(PUERTO);
 
-console.log("Ejemplo 7. Escuchando en puerto: " + PUERTO);
+console.log("Escuchando en puerto: " + PUERTO);

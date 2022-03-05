@@ -36,18 +36,43 @@ const pagina_error = `
 </html>
 `
 
+function print_info_req(req) {
+
+    console.log("");
+    console.log("Mensaje de solicitud");
+    console.log("====================");
+    console.log("Método: " + req.method);
+    console.log("Recurso: " + req.url);
+    console.log("Version: " + req.httpVersion)
+    console.log("Cabeceras: ");
+
+    //-- Recorrer todas las cabeceras disponibles
+    //-- imprimiendo su nombre y su valor
+    for (hname in req.headers)
+      console.log(`  * ${hname}: ${req.headers[hname]}`);
+
+    //-- Construir el objeto url con la url de la solicitud
+    const myURL = new URL(req.url, 'http://' + req.headers['host']);
+    console.log("URL completa: " + myURL.href);
+    console.log("  Ruta: " + myURL.pathname);
+}
+
+
 const server = http.createServer((req, res)=>{
     console.log("Petición recibida!");
+
+    //print_info_req(req);
 
     //-- Valores de la respuesta por defecto
     let code = 200;
     let code_msg = "OK";
-    let page = pagina_main;
+    
 
     //-- Analizar el recurso
     //-- Construir el objeto url con la url de la solicitud
     const url = new URL(req.url, 'http://' + req.headers['host']);
-    console.log(url.pathname);
+    console.log("URL (del recurso solicitado): " + url.href)
+    console.log("Ruta: ",url.pathname);
 
     //-- Cualquier recurso que no sea la página principal
     //-- genera un error
@@ -62,6 +87,7 @@ const server = http.createServer((req, res)=>{
     res.statusCode = code;
     res.statusMessage = code_msg;
     res.setHeader('Content-Type','text/html');
+    let page = pagina_main;
     res.write(page);
     res.end();
 });

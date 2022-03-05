@@ -43,7 +43,8 @@ const server = http.createServer((req, res)=>{
 
     
     if (url.pathname = '/') {
-        petition = "./main.html"
+        // ./main.html buscamos en toda la P1 , con html/main.html buscamos en la carpeta html
+        petition = "html/main.html"
     }
 
     //-- Generar la respusta en función de las variables
@@ -54,7 +55,8 @@ const server = http.createServer((req, res)=>{
     fs.readFile(petition, (err, data) => {
         if (err) {
             console.log("NO");
-            //-- Para que deje de buscar el recurso y vuelva a esperar peticiones
+            petition = "html/error.html";
+            data = fs.readFileSync(petition);
             return res.end();
         }
         console.log("SI");

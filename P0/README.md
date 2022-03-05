@@ -33,7 +33,6 @@ Pasos a seguir:
 **texto en negrita**
 
 *texto en cursiva*
-
 **texto en negrita**
 
 

@@ -41,8 +41,8 @@ const server = http.createServer((req, res)=>{
     console.log("URL (del recurso solicitado): " + url.href)
     console.log("Ruta: ",url.pathname);
 
-    
-    if (url.pathname = '/') {
+    let petition = "";
+    if (url.pathname == '/') {
         // ./main.html buscamos en toda la P1 , con html/main.html buscamos en la carpeta html
         petition = "html/main.html"
     }
@@ -57,6 +57,7 @@ const server = http.createServer((req, res)=>{
             console.log("NO");
             petition = "html/error.html";
             data = fs.readFileSync(petition);
+            res.write(data);
             return res.end();
         }
         console.log("SI");

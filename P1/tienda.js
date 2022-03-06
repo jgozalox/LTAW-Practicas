@@ -43,7 +43,7 @@ const server = http.createServer((req, res)=>{
 
     let petition = "";
     let mimetype = 'text/html';
-    
+
     if (url.pathname == '/') {
         // ./main.html buscamos en toda la P1 , con html/main.html buscamos en la carpeta html
         petition = "/html/main.html"
@@ -76,10 +76,12 @@ const server = http.createServer((req, res)=>{
         switch (resource) {
             case 'css':
               mimetype = "text/css";
-              console.log('Mimetype = css');
               break;
+            case 'png':
+                mimetype = "image/png";
+                break;
             default:
-              console.log('X');
+              mimetype = 'text/html';
           }
         console.log("SI");
         //-- Escribo la cabecera del mensaje y muestro la pagina solicitada

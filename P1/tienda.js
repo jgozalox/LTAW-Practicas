@@ -47,6 +47,8 @@ const server = http.createServer((req, res)=>{
         petition = "html/main.html"
     }
 
+    
+
     //-- Generar la respusta en función de las variables
     //-- code, code_msg y page
     res.statusCode = code;
@@ -54,7 +56,8 @@ const server = http.createServer((req, res)=>{
     //-- Lectura asincrona de los recursos a mostrar en la pagina
     fs.readFile(petition, (err, data) => {
         if (err) {
-            console.log("NO");
+            res.statusCode = 404
+            res.statusMessage = "Not Found"
             petition = "html/error.html";
             data = fs.readFileSync(petition);
             res.write(data);

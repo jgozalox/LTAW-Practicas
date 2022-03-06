@@ -42,12 +42,22 @@ const server = http.createServer((req, res)=>{
     console.log("Ruta: ",url.pathname);
 
     let petition = "";
+    let mimetype = 'text/html';
+    
     if (url.pathname == '/') {
         // ./main.html buscamos en toda la P1 , con html/main.html buscamos en la carpeta html
-        petition = "html/main.html"
+        petition = "/html/main.html"
+    }else {                                        //-- Si se pide cualquier otra cosa
+        petition = url.pathname;
     }
 
-    
+    //-- Guarda el tipo de recurso pedido, separando su nombre de la extension
+    resource = petition.split(".")[1];
+    //-- Le añado un punto para que el sistema pueda buscarlo y mostrarlo
+    petition = "." + petition;
+
+    console.log("Nombre del recurso servido: " + petition);
+    console.log("Extension del recurso: " + resource);
 
     //-- Generar la respusta en función de las variables
     //-- code, code_msg y page
@@ -63,9 +73,17 @@ const server = http.createServer((req, res)=>{
             res.write(data);
             return res.end();
         }
+        switch (resource) {
+            case 'css':
+              mimetype = "text/css";
+              console.log('Mimetype = css');
+              break;
+            default:
+              console.log('X');
+          }
         console.log("SI");
         //-- Escribo la cabecera del mensaje y muestro la pagina solicitada
-        res.setHeader('Content-Type','text/html')
+        res.setHeader('Content-Type', mimetype);
         res.write(data);
         res.end();
     });

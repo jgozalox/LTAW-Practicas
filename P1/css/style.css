@@ -32,6 +32,22 @@
   text-align: center;
 }
 
+#header{
+  background-image: url("/images/fondo.jpg");
+  color: white;
+  text-shadow: black 1px 0 10px;
+  font-size: 25px;
+}
+
+#footer {
+  position:fixed;
+  left:0px;
+  bottom:0px;
+  height:30px;
+  width:100%;
+  background:#999;
+}
+
 @media only screen and (max-width: 620px) {
   /* For mobile phones: */
   .menu, .main, .right {

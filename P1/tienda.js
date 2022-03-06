@@ -59,15 +59,12 @@ const server = http.createServer((req, res)=>{
     console.log("Nombre del recurso servido: " + petition);
     console.log("Extension del recurso: " + resource);
 
-    //-- Generar la respusta en función de las variables
-    //-- code, code_msg y page
-    res.statusCode = code;
-    res.statusMessage = code_msg;
+
     //-- Lectura asincrona de los recursos a mostrar en la pagina
     fs.readFile(petition, (err, data) => {
         if (err) {
-            res.statusCode = 404
-            res.statusMessage = "Not Found"
+            code = 404;
+            code_msg = "Not found";
             petition = "html/error.html";
             data = fs.readFileSync(petition);
             res.write(data);
@@ -77,13 +74,18 @@ const server = http.createServer((req, res)=>{
             case 'css':
               mimetype = "text/css";
               break;
+            case 'jpg':
+            case 'jpeg':
             case 'png':
-                mimetype = "image/png";
+                mimetype = "image/" + resource;
                 break;
             default:
               mimetype = 'text/html';
           }
-        console.log("SI");
+        //-- Generar la respusta en función de las variables
+        //-- code, code_msg y page
+        res.statusCode = code;
+        res.statusMessage = code_msg;
         //-- Escribo la cabecera del mensaje y muestro la pagina solicitada
         res.setHeader('Content-Type', mimetype);
         res.write(data);

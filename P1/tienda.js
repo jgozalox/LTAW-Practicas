@@ -63,6 +63,15 @@ const server = http.createServer((req, res)=>{
     //-- code, code_msg y page
     res.statusCode = code;
     res.statusMessage = code_msg;
+
+    if (resource == "css") {
+      mimetype = "text/css";
+      console.log("estilooool");
+     }else if(resource == "jpg" || resource == "png" || resource == "jpeg") {
+      mimetype = "image/" + resource;
+      console.log("imagen");
+  }
+  
     //-- Lectura asincrona de los recursos a mostrar en la pagina
     fs.readFile(petition, (err, data) => {
       console.log(resource);
@@ -75,13 +84,7 @@ const server = http.createServer((req, res)=>{
             res.write(data);
             return res.end();
         }
-        if (resource == "css") {
-          mimetype = "text/css";
-          console.log("estilooool");
-         }else if(resource == "jpg" || resource == "png" || resource == "jpeg") {
-          mimetype = "image/" + resource;
-          console.log("imagen");
-      }
+        
         console.log("SI");
         //-- Escribo la cabecera del mensaje y muestro la pagina solicitada
         res.setHeader('Content-Type', mimetype);

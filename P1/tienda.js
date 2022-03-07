@@ -79,7 +79,7 @@ const server = http.createServer((req, res)=>{
       default:
         console.log("Not recognised resource")
     }
-
+    
     //-- Lectura asincrona de los recursos a mostrar en la pagina
     fs.readFile(petition, (err, data) => {
       console.log(resource);
@@ -92,8 +92,8 @@ const server = http.createServer((req, res)=>{
             res.write(data);
             return res.end();
         }
-        
-        //-- Escribir la cabecera del mensaje y muestro la pagina solicitada
+      
+        //-- Escribo la cabecera del mensaje y muestro la pagina solicitada
         res.setHeader('Content-Type', mimetype);
         res.write(data);
         res.end();

@@ -30,7 +30,7 @@ const server = http.createServer((req, res)=>{
     console.log("Petición recibida!");
 
     //-- Mostrar informacion de la peticion
-    print_info_req(req);
+    //print_info_req(req);
 
     //-- Valores de la respuesta por defecto
     let code = 200;
@@ -76,8 +76,8 @@ const server = http.createServer((req, res)=>{
         break;
       //Archivos Javascript
       case 'js': 
-      default:
-        console.log("Not recognised resource")
+        mimetype = "application/javascript";
+        break;
     }
     
     //-- Lectura asincrona de los recursos a mostrar en la pagina

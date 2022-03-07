@@ -29,13 +29,13 @@ function print_info_req(req) {
 const server = http.createServer((req, res)=>{
     console.log("Petición recibida!");
 
-    //print_info_req(req);
+    //-- Mostrar informacion de la peticion
+    print_info_req(req);
 
     //-- Valores de la respuesta por defecto
     let code = 200;
     let code_msg = "OK";
 
-    //-- Analizar el recurso
     //-- Construir el objeto url con la url de la solicitud
     const url = new URL(req.url, 'http://' + req.headers['host']);
     console.log("URL (del recurso solicitado): " + url.href)
@@ -44,34 +44,42 @@ const server = http.createServer((req, res)=>{
     let petition = "";
     let mimetype = 'text/html';
 
-    if (url.pathname == '/') {
-        // ./main.html buscamos en toda la P1 , con html/main.html buscamos en la carpeta html
-        petition = "/html/main.html"
-    }else {                                        //-- Si se pide cualquier otra cosa
+    if (url.pathname == '/') {//-- Si se pide la pagina principal
+      petition = "/html/main.html"
+    }else {//-- Si se pide cualquier otra cosa
         petition = url.pathname;
     }
 
-    //-- Guarda el tipo de recurso pedido, separando su nombre de la extension
+    //-- Se guarda el tipo de recurso pedido, separando su nombre de la extension
     resource = petition.split(".")[1];
-    //-- Le añado un punto para que el sistema pueda buscarlo y mostrarlo
+    //-- Se añade un punto para que el sistema pueda buscarlo y mostrarlo
     petition = "." + petition;
 
     console.log("Nombre del recurso servido: " + petition);
     console.log("Extension del recurso: " + resource);
 
     //-- Generar la respusta en función de las variables
-    //-- code, code_msg y page
     res.statusCode = code;
     res.statusMessage = code_msg;
 
-    if (resource == "css") {
-      mimetype = "text/css";
-      console.log("estilooool");
-     }else if(resource == "jpg" || resource == "png" || resource == "jpeg") {
-      mimetype = "image/" + resource;
-      console.log("imagen");
-  }
-  
+    //-- Cambiar el mimetype en funcion de la extensión del recurso
+    switch (resource) {
+      //Hoja de estilos
+      case 'css': 
+        mimetype = "text/css";
+        break;
+      //Imagenes  
+      case 'jpg':
+      case 'png':
+      case 'jpeg':
+        mimetype = "image/" + resource;
+        break;
+      //Archivos Javascript
+      case 'js': 
+      default:
+        console.log("Not recognised resource")
+    }
+
     //-- Lectura asincrona de los recursos a mostrar en la pagina
     fs.readFile(petition, (err, data) => {
       console.log(resource);
@@ -85,8 +93,7 @@ const server = http.createServer((req, res)=>{
             return res.end();
         }
         
-        console.log("SI");
-        //-- Escribo la cabecera del mensaje y muestro la pagina solicitada
+        //-- Escribir la cabecera del mensaje y muestro la pagina solicitada
         res.setHeader('Content-Type', mimetype);
         res.write(data);
         res.end();

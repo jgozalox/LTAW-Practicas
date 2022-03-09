@@ -3,6 +3,16 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+#navbar {
+  overflow: hidden;
+  position: sticky;
+}
+
+a:hover {
+  font-weight: lighter;
+  font-weight: bolder;
+}
+
 .menu {
   float: left;
   width: 20%;

@@ -45,7 +45,7 @@ const server = http.createServer((req, res)=>{
     let mimetype = 'text/html';
 
     if (url.pathname == '/') {//-- Si se pide la pagina principal
-      petition = "/html/main.html"
+      petition = "/html/index.html"
     }else {//-- Si se pide cualquier otra cosa
         petition = url.pathname;
     }

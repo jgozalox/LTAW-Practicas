@@ -64,9 +64,10 @@ boton_ajax.onclick = () => {
         }
     }
 
-    //-- Configurar la petición
+    //-- Configurar la petición (nombre del recurso)
     m.open("GET","/productos", true);
 
     //-- Enviar la petición!
     m.send();
+
 }

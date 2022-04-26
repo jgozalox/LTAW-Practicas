@@ -1,4 +1,5 @@
-{
+[
+    {
     "usuarios": [   {
                         "nick": "root",
                         "pass": "123456",
@@ -11,7 +12,8 @@
                         "real": "Javier Gozalo",
                         "email": "jgozalo@gmail.com"
                     }
-                ],
+                ]},
+    {
     "productos": [  {
                         "nombre": "Golden Supreme",
                         "descripcion":"Color: Amarillo",
@@ -30,7 +32,8 @@
                         "precio": "0.5",
                         "stock": "200"
                     }
-                ],
+                ]},
+    {
     "pedidos":  [
                     {
                         "nombre_usuario": "",
@@ -39,4 +42,5 @@
                         "lista_productos": ""
                     }
                 ]
-}
+    }
+]

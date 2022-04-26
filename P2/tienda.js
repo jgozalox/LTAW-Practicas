@@ -1,8 +1,18 @@
 const http = require('http');
 const fs = require('fs');
 
+
 const PUERTO = 9090;
 
+
+//-- Npmbre del fichero JSON a leer
+const FICHERO_JSON = "json/tienda.json"
+
+//-- Leer el fichero JSON
+const tienda_json = fs.readFileSync(FICHERO_JSON);
+
+//-- Crear la estructura tienda a partir del contenido del fichero
+const tienda = JSON.parse(tienda_json);
 
 function print_info_req(req) {
 
@@ -50,6 +60,8 @@ const server = http.createServer((req, res)=>{
         petition = url.pathname;
     }
 
+
+
     //-- Se guarda el tipo de recurso pedido, separando su nombre de la extension
     resource = petition.split(".")[1];
     //-- Se añade un punto para que el sistema pueda buscarlo y mostrarlo
@@ -95,6 +107,15 @@ const server = http.createServer((req, res)=>{
       
         //-- Escribo la cabecera del mensaje y muestro la pagina solicitada
         res.setHeader('Content-Type', mimetype);
+
+        const goldensupreme = fs.readFileSync('html/goldensupreme.html', 'utf-8');
+
+        let info;
+        let golden_supreme = goldensupreme;
+        info = tienda[1].productos[0]['nombre'];
+        console.log(info);
+        golden_supreme = golden_supreme.replace("NOMBRE", info);
+        
         res.write(data);
         res.end();
     });

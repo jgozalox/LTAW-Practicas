@@ -14,6 +14,8 @@ const tienda_json = fs.readFileSync(FICHERO_JSON);
 //-- Crear la estructura tienda a partir del contenido del fichero
 const tienda = JSON.parse(tienda_json);
 
+let goldensupreme = fs.readFileSync('html/goldensupreme.html', 'utf-8');
+
 function print_info_req(req) {
 
     console.log("");
@@ -54,13 +56,15 @@ const server = http.createServer((req, res)=>{
     let petition = "";
     let mimetype = 'text/html';
 
+    console.log("------------->",tienda[1]['productos'][1]['descripcion']);
+    goldensupreme = goldensupreme.replace("NOMBRE",tienda[1]['productos'][1]['descripcion']);
+
+
     if (url.pathname == '/') {//-- Si se pide la pagina principal
       petition = "/html/index.html"
     }else {//-- Si se pide cualquier otra cosa
         petition = url.pathname;
     }
-
-
 
     //-- Se guarda el tipo de recurso pedido, separando su nombre de la extension
     resource = petition.split(".")[1];
@@ -91,10 +95,10 @@ const server = http.createServer((req, res)=>{
         mimetype = "application/javascript";
         break;
     }
-    
+
     //-- Lectura asincrona de los recursos a mostrar en la pagina
     fs.readFile(petition, (err, data) => {
-      console.log(resource);
+      
         if (err) {
             res.statusCode = 404
             res.statusMessage = "Not Found"
@@ -108,13 +112,6 @@ const server = http.createServer((req, res)=>{
         //-- Escribo la cabecera del mensaje y muestro la pagina solicitada
         res.setHeader('Content-Type', mimetype);
 
-        const goldensupreme = fs.readFileSync('html/goldensupreme.html', 'utf-8');
-
-        let info;
-        let golden_supreme = goldensupreme;
-        info = tienda[1].productos[0]['nombre'];
-        console.log(info);
-        golden_supreme = golden_supreme.replace("NOMBRE", info);
         
         res.write(data);
         res.end();

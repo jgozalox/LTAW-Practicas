@@ -14,7 +14,8 @@ const tienda_json = fs.readFileSync(FICHERO_JSON);
 //-- Crear la estructura tienda a partir del contenido del fichero
 const tienda = JSON.parse(tienda_json);
 
-let goldensupreme = fs.readFileSync('html/goldensupreme.html', 'utf-8');
+//-- Página de productos
+const goldensupreme = fs.readFileSync('html/goldensupreme.html', 'utf-8');
 
 function print_info_req(req) {
 
@@ -56,9 +57,11 @@ const server = http.createServer((req, res)=>{
     let petition = "";
     let mimetype = 'text/html';
 
+    let info;
     console.log("------------->",tienda[1]['productos'][1]['descripcion']);
-    goldensupreme = goldensupreme.replace("NOMBRE",tienda[1]['productos'][1]['descripcion']);
-
+    info = tienda[1]['productos'][1]['descripcion'];
+    let golden_supreme = goldensupreme;
+    golden_supreme = golden_supreme.replace("NOMBRE", info);
 
     if (url.pathname == '/') {//-- Si se pide la pagina principal
       petition = "/html/index.html"
@@ -66,10 +69,30 @@ const server = http.createServer((req, res)=>{
         petition = url.pathname;
     }
 
-    //-- Se guarda el tipo de recurso pedido, separando su nombre de la extension
-    resource = petition.split(".")[1];
-    //-- Se añade un punto para que el sistema pueda buscarlo y mostrarlo
-    petition = "." + petition;
+      //-- Se guarda el tipo de recurso pedido, separando su nombre de la extension
+      resource = petition.split(".")[1];
+      //-- Se añade un punto para que el sistema pueda buscarlo y mostrarlo
+      petition = "." + petition;
+
+       //-- Cambiar el mimetype en funcion de la extensión del recurso
+       switch (resource) {
+        //Hoja de estilos
+        case 'css': 
+          mimetype = "text/css";
+          break;
+        //Imagenes  
+        case 'jpg':
+        case 'png':
+        case 'jpeg':
+          mimetype = "image/" + resource;
+          break;
+        //Archivos Javascript
+        case 'js': 
+          mimetype = "application/javascript";
+          break;
+      }
+
+
 
     console.log("Nombre del recurso servido: " + petition);
     console.log("Extension del recurso: " + resource);
@@ -78,23 +101,7 @@ const server = http.createServer((req, res)=>{
     res.statusCode = code;
     res.statusMessage = code_msg;
 
-    //-- Cambiar el mimetype en funcion de la extensión del recurso
-    switch (resource) {
-      //Hoja de estilos
-      case 'css': 
-        mimetype = "text/css";
-        break;
-      //Imagenes  
-      case 'jpg':
-      case 'png':
-      case 'jpeg':
-        mimetype = "image/" + resource;
-        break;
-      //Archivos Javascript
-      case 'js': 
-        mimetype = "application/javascript";
-        break;
-    }
+ 
 
     //-- Lectura asincrona de los recursos a mostrar en la pagina
     fs.readFile(petition, (err, data) => {
@@ -107,6 +114,11 @@ const server = http.createServer((req, res)=>{
             res.setHeader('Content-Type', mimetype);
             res.write(data);
             return res.end();
+        }else{
+          if(petition == "./html/goldensupreme.html"){
+            console.log(".--------------------------",petition);
+            data = golden_supreme;
+          }
         }
       
         //-- Escribo la cabecera del mensaje y muestro la pagina solicitada

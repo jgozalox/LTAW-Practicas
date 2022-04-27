@@ -58,10 +58,15 @@ const server = http.createServer((req, res)=>{
     let mimetype = 'text/html';
 
     let info;
-    console.log("------------->",tienda[1]['productos'][1]['descripcion']);
-    info = tienda[1]['productos'][1]['descripcion'];
     let golden_supreme = goldensupreme;
+    info = tienda[1]['productos'][1]['nombre'];
     golden_supreme = golden_supreme.replace("NOMBRE", info);
+    info = tienda[1]['productos'][1]['descripcion'];
+    golden_supreme = golden_supreme.replace("DESCRIPCION", info);
+    info = tienda[1]['productos'][1]['precio'];
+    golden_supreme = golden_supreme.replace("PRECIO", info);
+    info = tienda[1]['productos'][1]['stock'];
+    golden_supreme = golden_supreme.replace("STOCK", info);
 
     if (url.pathname == '/') {//-- Si se pide la pagina principal
       petition = "/html/index.html"

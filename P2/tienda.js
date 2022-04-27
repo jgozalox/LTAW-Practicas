@@ -63,13 +63,13 @@ const server = http.createServer((req, res)=>{
 
     //Golden Supreme
     let golden_supreme = goldensupreme;
-    info = tienda[1]['productos'][1]['nombre'];
+    info = tienda[1]['productos'][0]['nombre'];
     golden_supreme = golden_supreme.replace("NOMBRE", info);
-    info = tienda[1]['productos'][1]['descripcion'];
+    info = tienda[1]['productos'][0]['descripcion'];
     golden_supreme = golden_supreme.replace("DESCRIPCION", info);
-    info = tienda[1]['productos'][1]['precio'];
+    info = tienda[1]['productos'][0]['precio'];
     golden_supreme = golden_supreme.replace("PRECIO", info);
-    info = tienda[1]['productos'][1]['stock'];
+    info = tienda[1]['productos'][0]['stock'];
     golden_supreme = golden_supreme.replace("STOCK", info);
 
     //Granny Smith
@@ -86,13 +86,13 @@ const server = http.createServer((req, res)=>{
 
     //Red Delicious
     let red_delicious = reddelicious;
-    info = tienda[1]['productos'][1]['nombre'];
+    info = tienda[1]['productos'][2]['nombre'];
     red_delicious = red_delicious.replace("NOMBRE", info);
-    info = tienda[1]['productos'][1]['descripcion'];
+    info = tienda[1]['productos'][2]['descripcion'];
     red_delicious = red_delicious.replace("DESCRIPCION", info);
-    info = tienda[1]['productos'][1]['precio'];
+    info = tienda[1]['productos'][2]['precio'];
     red_delicious = red_delicious.replace("PRECIO", info);
-    info = tienda[1]['productos'][1]['stock'];
+    info = tienda[1]['productos'][2]['stock'];
     red_delicious = red_delicious.replace("STOCK", info);
 
     if (url.pathname == '/') {//-- Si se pide la pagina principal

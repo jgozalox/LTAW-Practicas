@@ -14,8 +14,10 @@ const tienda_json = fs.readFileSync(FICHERO_JSON);
 //-- Crear la estructura tienda a partir del contenido del fichero
 const tienda = JSON.parse(tienda_json);
 
-//-- Página de productos
+//--Productos
 const goldensupreme = fs.readFileSync('html/goldensupreme.html', 'utf-8');
+const grannysmith = fs.readFileSync('html/grannysmith.html', 'utf-8');
+const reddelicious = fs.readFileSync('html/reddelicious.html', 'utf-8');
 
 function print_info_req(req) {
 
@@ -58,6 +60,8 @@ const server = http.createServer((req, res)=>{
     let mimetype = 'text/html';
 
     let info;
+
+    //Golden Supreme
     let golden_supreme = goldensupreme;
     info = tienda[1]['productos'][1]['nombre'];
     golden_supreme = golden_supreme.replace("NOMBRE", info);
@@ -67,6 +71,29 @@ const server = http.createServer((req, res)=>{
     golden_supreme = golden_supreme.replace("PRECIO", info);
     info = tienda[1]['productos'][1]['stock'];
     golden_supreme = golden_supreme.replace("STOCK", info);
+
+    //Granny Smith
+    let granny_smith = grannysmith;
+    info = tienda[1]['productos'][1]['nombre'];
+    granny_smith = granny_smith.replace("NOMBRE", info);
+    info = tienda[1]['productos'][1]['descripcion'];
+    granny_smith = granny_smith.replace("DESCRIPCION", info);
+    info = tienda[1]['productos'][1]['precio'];
+    granny_smith = granny_smith.replace("PRECIO", info);
+    info = tienda[1]['productos'][1]['stock'];
+    granny_smith = granny_smith.replace("STOCK", info);
+
+
+    //Red Delicious
+    let red_delicious = reddelicious;
+    info = tienda[1]['productos'][1]['nombre'];
+    red_delicious = red_delicious.replace("NOMBRE", info);
+    info = tienda[1]['productos'][1]['descripcion'];
+    red_delicious = red_delicious.replace("DESCRIPCION", info);
+    info = tienda[1]['productos'][1]['precio'];
+    red_delicious = red_delicious.replace("PRECIO", info);
+    info = tienda[1]['productos'][1]['stock'];
+    red_delicious = red_delicious.replace("STOCK", info);
 
     if (url.pathname == '/') {//-- Si se pide la pagina principal
       petition = "/html/index.html"
@@ -121,9 +148,12 @@ const server = http.createServer((req, res)=>{
             return res.end();
         }else{
           if(petition == "./html/goldensupreme.html"){
-            console.log(".--------------------------",petition);
             data = golden_supreme;
-          }
+          }else if(petition == "./html/grannysmith.html"){
+            data = granny_smith;
+          }else if(petition == "./html/reddelicious.html"){
+            data = red_delicious;
+          } 
         }
       
         //-- Escribo la cabecera del mensaje y muestro la pagina solicitada

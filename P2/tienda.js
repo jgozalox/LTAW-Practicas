@@ -98,8 +98,8 @@ const server = http.createServer((req, res)=>{
     let info;
     
     //-- LEER LOGINS
-    let nombre_user = myURL.searchParams.get('usuario');
-    let pass = myURL.searchParams.get('contraseña');
+    let nombre_user = url.searchParams.get('usuario');
+    let pass = url.searchParams.get('contraseña');
     let login1_BD = tienda[0]['usuarios'][0]['nick'];
     let pass1_BD = tienda[0]['usuarios'][0]['pass'];
     let login2_BD = tienda[0]['usuarios'][1]['nick'];

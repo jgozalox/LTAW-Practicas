@@ -19,6 +19,9 @@ const goldensupreme = fs.readFileSync('html/goldensupreme.html', 'utf-8');
 const grannysmith = fs.readFileSync('html/grannysmith.html', 'utf-8');
 const reddelicious = fs.readFileSync('html/reddelicious.html', 'utf-8');
 
+//-- Leer la Cookie recibida
+const cookie = req.headers.cookie;
+
 function print_info_req(req) {
 
     console.log("");
@@ -153,6 +156,8 @@ const server = http.createServer((req, res)=>{
             data = granny_smith;
           }else if(petition == "./html/reddelicious.html"){
             data = red_delicious;
+          }else if(petition == "./html/logueado.html"){
+             //
           } 
         }
       

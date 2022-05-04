@@ -19,10 +19,11 @@ const goldensupreme = fs.readFileSync('html/goldensupreme.html', 'utf-8');
 const grannysmith = fs.readFileSync('html/grannysmith.html', 'utf-8');
 const reddelicious = fs.readFileSync('html/reddelicious.html', 'utf-8');
 
-//-- Leer la Cookie recibida
-const cookie = req.headers.cookie;
+
 
 function print_info_req(req) {
+
+
 
     console.log("");
     console.log("Mensaje de solicitud");
@@ -46,6 +47,10 @@ function print_info_req(req) {
 
 const server = http.createServer((req, res)=>{
     console.log("Petición recibida!");
+
+      //-- Leer cookies
+const cookie = req.headers.cookie;
+console.log("------------------->",cookie);
 
     //-- Mostrar informacion de la peticion
     //print_info_req(req);

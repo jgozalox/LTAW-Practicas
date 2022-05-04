@@ -11,6 +11,9 @@ const tienda_json = fs.readFileSync(FICHERO_JSON);
 //-- Crear la estructura tienda a partir del contenido del fichero
 const tienda = JSON.parse(tienda_json);
 
+//--Pagina principal
+const INDEX = fs.readFileSync('html/index.html', 'utf-8');
+
 //--Productos
 const goldensupreme = fs.readFileSync('html/goldensupreme.html', 'utf-8');
 const grannysmith = fs.readFileSync('html/grannysmith.html', 'utf-8');
@@ -97,7 +100,7 @@ const server = http.createServer((req, res)=>{
 
     let info;
     
-    //-- LEER LOGINS
+    //Logins
     let nombre_user = url.searchParams.get('usuario');
     let pass = url.searchParams.get('contraseña');
     let login1_BD = tienda[0]['usuarios'][0]['nick'];
@@ -206,22 +209,25 @@ const server = http.createServer((req, res)=>{
             res.setHeader('Content-Type', mimetype);
             res.write(data);
             return res.end();
-        }else{
-          if(petition == "./html/goldensupreme.html"){
+        }else if(petition == "./html/goldensupreme.html"){
             data = golden_supreme;
-          }else if(petition == "./html/grannysmith.html"){
+        }else if(petition == "./html/grannysmith.html"){
             data = granny_smith;
-          }else if(petition == "./html/reddelicious.html"){
+        }else if(petition == "./html/reddelicious.html"){
             data = red_delicious;
-          }else if(petition == "./html/logueado.html"){
+        }else if(petition == "./html/logueado.html"){
             data = user;
-          } 
+        }else if (petition == "./html/index.html"){
+          if (user_cookie != undefined){
+            user = INDEX.replace("IDENTIFICARSE", user_cookie);
+          }else{
+            user = INDEX.replace("IDENTIFICARSE", "");
+          }
+          data = user;
         }
       
         //-- Escribo la cabecera del mensaje y muestro la pagina solicitada
         res.setHeader('Content-Type', mimetype);
-
-        
         res.write(data);
         res.end();
     });

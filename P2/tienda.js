@@ -219,7 +219,8 @@ const server = http.createServer((req, res)=>{
             data = user;
         }else if (petition == "./html/index.html"){
           if (user_cookie != undefined){
-            user = INDEX.replace("IDENTIFICARSE", user_cookie);
+            user = INDEX.replace("IDENTIFICARSE", ": " +user_cookie);
+            user = INDEX.replace("Login", " ")
           }else{
             user = INDEX.replace("IDENTIFICARSE", "");
           }

@@ -16,6 +16,9 @@ const goldensupreme = fs.readFileSync('html/goldensupreme.html', 'utf-8');
 const grannysmith = fs.readFileSync('html/grannysmith.html', 'utf-8');
 const reddelicious = fs.readFileSync('html/reddelicious.html', 'utf-8');
 
+//--Formulario
+const FORMULARIO_LOGIN = fs.readFileSync('./html/login.html','utf-8');
+
 
 function print_info_req(req) {
     console.log("");
@@ -125,6 +128,10 @@ const server = http.createServer((req, res)=>{
     info = tienda[1]['productos'][2]['stock'];
     red_delicious = red_delicious.replace("STOCK", info);
 
+    //-- Entrega de formulario
+    let user = FORMULARIO_LOGIN;
+    let user_cookie = get_user(req);
+
     if (url.pathname == '/') {//-- Si se pide la pagina principal
       petition = "/html/index.html"
     }else {//-- Si se pide cualquier otra cosa
@@ -180,7 +187,7 @@ const server = http.createServer((req, res)=>{
           }else if(petition == "./html/reddelicious.html"){
             data = red_delicious;
           }else if(petition == "./html/logueado.html"){
-             //
+            data 
           } 
         }
       

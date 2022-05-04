@@ -17,7 +17,10 @@ const grannysmith = fs.readFileSync('html/grannysmith.html', 'utf-8');
 const reddelicious = fs.readFileSync('html/reddelicious.html', 'utf-8');
 
 //--Formulario
-const FORMULARIO_LOGIN = fs.readFileSync('./html/login.html','utf-8');
+const FORMULARIO_LOGIN = fs.readFileSync('html/login.html','utf-8');
+
+//-- Respuesta login
+const RESPUESTA_LOGIN = fs.readFileSync('html/logueado.html','utf-8');
 
 
 function print_info_req(req) {
@@ -93,6 +96,14 @@ const server = http.createServer((req, res)=>{
     let mimetype = 'text/html';
 
     let info;
+    
+    //-- LEER LOGINS
+    let nombre_user = myURL.searchParams.get('usuario');
+    let pass = myURL.searchParams.get('contraseña');
+    let login1_BD = tienda[0]['usuarios'][0]['nick'];
+    let pass1_BD = tienda[0]['usuarios'][0]['pass'];
+    let login2_BD = tienda[0]['usuarios'][1]['nick'];
+    let pass2_BD = tienda[0]['usuarios'][1]['pass'];
 
     //Golden Supreme
     let golden_supreme = goldensupreme;
@@ -131,6 +142,22 @@ const server = http.createServer((req, res)=>{
     //-- Entrega de formulario
     let user = FORMULARIO_LOGIN;
     let user_cookie = get_user(req);
+    let html_extra = "";
+    let html_extra_condicion = "";
+
+    //-- Reemplazar en "logueado.html"
+  user = RESPUESTA_LOGIN.replace("NOMBRE", nombre_user);
+  
+  if (nombre_user == login1_BD && pass == pass1_BD || nombre_user == login2_BD && pass == pass2_BD) {
+    html_extra = "<h2>Está registrad@</h2>";
+    html_extra_condicion = "<h2>¡A comprar!</h2>";
+    //-- Login correcto --> almaceno cookie
+    res.setHeader('Set-Cookie', "user=" + nombre_user);
+  } else {
+    html_extra = "<h2>Usuario y/o contraseña incorrectos!</h2>";
+  }
+  user = user.replace("HTML_EXTRA", html_extra);
+  user = user.replace("HTML_EXTRA_CONDICION", html_extra_condicion);
 
     if (url.pathname == '/') {//-- Si se pide la pagina principal
       petition = "/html/index.html"
@@ -187,7 +214,7 @@ const server = http.createServer((req, res)=>{
           }else if(petition == "./html/reddelicious.html"){
             data = red_delicious;
           }else if(petition == "./html/logueado.html"){
-            data 
+            data = user;
           } 
         }
       

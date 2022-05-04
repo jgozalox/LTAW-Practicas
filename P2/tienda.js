@@ -1,9 +1,6 @@
 const http = require('http');
 const fs = require('fs');
-
-
 const PUERTO = 9090;
-
 
 //-- Npmbre del fichero JSON a leer
 const FICHERO_JSON = "json/tienda.json"
@@ -20,11 +17,7 @@ const grannysmith = fs.readFileSync('html/grannysmith.html', 'utf-8');
 const reddelicious = fs.readFileSync('html/reddelicious.html', 'utf-8');
 
 
-
 function print_info_req(req) {
-
-
-
     console.log("");
     console.log("Mensaje de solicitud");
     console.log("====================");
@@ -45,12 +38,41 @@ function print_info_req(req) {
 }
 
 
+function get_user(req) {
+
+  //-- Leer la Cookie recibida
+  const cookie = req.headers.cookie;
+
+  //-- Hay cookie
+  if (cookie) {
+    //-- Obtener un array con todos los pares nombre-valor
+    let pares = cookie.split(";");
+    
+    //-- Variable para guardar el usuario
+    let user;
+
+    //-- Recorrer todos los pares nombre-valor
+    pares.forEach((element, index) => {
+
+      //-- Obtener los nombres y valores por separado
+      let [nombre, valor] = element.split('=');
+
+      //-- Leer el usuario
+      //-- Solo si el nombre es 'user'
+      if (nombre.trim() === 'user') {
+        user = valor;
+      }
+    });
+    
+    //-- Si la variable user no está asignada
+    //-- se devuelve null
+    return user || null;
+
+  }
+}
+
 const server = http.createServer((req, res)=>{
     console.log("Petición recibida!");
-
-      //-- Leer cookies
-const cookie = req.headers.cookie;
-console.log("------------------->",cookie);
 
     //-- Mostrar informacion de la peticion
     //print_info_req(req);
@@ -132,16 +154,12 @@ console.log("------------------->",cookie);
           break;
       }
 
-
-
     console.log("Nombre del recurso servido: " + petition);
     console.log("Extension del recurso: " + resource);
 
     //-- Generar la respusta en función de las variables
     res.statusCode = code;
     res.statusMessage = code_msg;
-
- 
 
     //-- Lectura asincrona de los recursos a mostrar en la pagina
     fs.readFile(petition, (err, data) => {

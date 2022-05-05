@@ -17,6 +17,9 @@ const tienda = JSON.parse(tienda_json);
 //--Pagina principal
 const INDEX = fs.readFileSync('html/index.html', 'utf-8');
 
+//--Alcarro
+const ALCARRO = fs.readFileSync('html/alcarro.html', 'utf-8');
+
 //--Productos
 const goldensupreme = fs.readFileSync('html/goldensupreme.html', 'utf-8');
 const grannysmith = fs.readFileSync('html/grannysmith.html', 'utf-8');
@@ -48,6 +51,35 @@ function print_info_req(req) {
     const myURL = new URL(req.url, 'http://' + req.headers['host']);
     console.log("URL completa: " + myURL.href);
     console.log("  Ruta: " + myURL.pathname);
+}
+
+function get_carrito(req) {
+  //-- Leer la Cookie recibida
+  const cookie = req.headers.cookie;
+
+  if (cookie) {
+    //-- Obtener un array con todos los pares nombre-valor
+    let pares = cookie.split(";");
+
+    //-- Variable para guardar el producto
+    let carrito;
+
+    //-- Recorrer todos los pares nombre-valor
+    pares.forEach((element, index) => {
+      //-- Obtener los nombre y los valores por separado
+      let [nombre, valor] = element.split('=');
+
+      //-- Leer el producto
+      //-- Solo si el nombre es 'carrito'
+      if (nombre.trim() === 'carrito') {
+        carrito = valor;
+        //res.setHeader('Set-Cookie', element + ':' + carrito);
+      }
+    });
+    //-- Si la variable user no está asignada
+    //-- se devuelve null
+    return carrito || null;
+  }
 }
 
 //--Función para obtener la información del usuario
@@ -173,6 +205,9 @@ const server = http.createServer((req, res)=>{
         petition = url.pathname;
     }
 
+    let carrito = ALCARRO;
+    let carro = "";
+    let carrear = get_carrito(req);
       //-- Se guarda el tipo de recurso pedido, separando su nombre de la extension
       resource = petition.split(".")[1];
       //-- Se añade un punto para que el sistema pueda buscarlo y mostrarlo
@@ -230,6 +265,18 @@ const server = http.createServer((req, res)=>{
             user = INDEX.replace("IDENTIFICARSE", "");
           }
           data = user;
+        }else if (petition == './html/alcarro.html'){
+          if (carrear == null) { //-- Si el carro está vacío
+            carro = tipoProd;
+            res.setHeader('Set-Cookie', "carrito= " + carro);
+            carrito = carrito.replace("PRODUCTO_AÑADIDO", tipoProd);
+          } else { //-- Si ya hay productos añadidos
+            carro = carrear + ", " + tipoProd;
+            res.setHeader('Set-Cookie', "carrito= " + carro);
+            carrito = carrito.replace("PRODUCTO_AÑADIDO", tipoProd);
+          }
+          data = carrito;
+        //-- Finalizar compra 
         }
       
         //-- Escribo la cabecera del mensaje y muestro la pagina solicitada

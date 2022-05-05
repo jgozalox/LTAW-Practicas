@@ -281,6 +281,31 @@ const server = http.createServer((req, res)=>{
           }
           data = carrito;
         //-- Finalizar compra 
+        }else if (petition == './html/compra.html'){
+          if (user_cookie == null){
+            sinlogin = FORMULARIO_LOGIN;
+            data = sinlogin;
+          } else {
+            let comprado;
+            comprado = COMPRA.replace("PRODUCTOS_COMPRADOS", carrear);
+            data = comprado;
+          }
+        } if ((direccion != null) && (tarjeta != null)) {
+          let pedido = {
+            "nombre usuario": user_cookie,
+            "dirección envío": direccion,
+            "número de la tarjeta": tarjeta,
+            "productos": carrear
+          }
+          tienda[2]["pedidos"].push(pedido);
+          //-- Pasarlo a JSON y almacenarlo en BD
+          let myPedido = JSON.stringify(tienda);
+          fs.writeFileSync(FICHERO_JSON_OUT, myPedido);
+          //-- Confirmar pedido
+          comprado = COMPRA_COMPLETADA.replace("PRODUCTOS_COMPRADOS", carrear);
+          data = comprado;
+  
+        //-- BÚSQUEDA CON AUTOCOMPLETADO
         }
       
         //-- Escribo la cabecera del mensaje y muestro la pagina solicitada

@@ -1,8 +1,11 @@
+//--Importar modulos
 const http = require('http');
 const fs = require('fs');
+
+//--Definir puertos
 const PUERTO = 9090;
 
-//-- Npmbre del fichero JSON a leer
+//-- Nombre del fichero JSON a leer
 const FICHERO_JSON = "json/tienda.json"
 
 //-- Leer el fichero JSON
@@ -26,6 +29,7 @@ const FORMULARIO_LOGIN = fs.readFileSync('html/login.html','utf-8');
 const RESPUESTA_LOGIN = fs.readFileSync('html/logueado.html','utf-8');
 
 
+//--Funcion para imprimir información de la petición
 function print_info_req(req) {
     console.log("");
     console.log("Mensaje de solicitud");
@@ -46,7 +50,7 @@ function print_info_req(req) {
     console.log("  Ruta: " + myURL.pathname);
 }
 
-
+//--Función para obtener la información del usuario
 function get_user(req) {
 
   //-- Leer la Cookie recibida
@@ -80,6 +84,7 @@ function get_user(req) {
   }
 }
 
+//--Creación del servidor
 const server = http.createServer((req, res)=>{
     console.log("Petición recibida!");
 
@@ -234,6 +239,6 @@ const server = http.createServer((req, res)=>{
     });
 });
 
+//--Servidor en escucha
 server.listen(PUERTO);
-
 console.log("Escuchando en puerto: " + PUERTO);

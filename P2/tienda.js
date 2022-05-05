@@ -50,6 +50,36 @@ function print_info_req(req) {
     console.log("  Ruta: " + myURL.pathname);
 }
 
+//--Funcion para obtener el carrito
+function get_carrito(req) {
+  //-- Leer la Cookie recibida
+  const cookie = req.headers.cookie;
+
+  if (cookie) {
+    //-- Obtener un array con todos los pares nombre-valor
+    let pares = cookie.split(";");
+
+    //-- Variable para guardar el producto
+    let carrito;
+
+    //-- Recorrer todos los pares nombre-valor
+    pares.forEach((element, index) => {
+      //-- Obtener los nombre y los valores por separado
+      let [nombre, valor] = element.split('=');
+
+      //-- Leer el producto
+      //-- Solo si el nombre es 'carrito'
+      if (nombre.trim() === 'carrito') {
+        carrito = valor;
+        //res.setHeader('Set-Cookie', element + ':' + carrito);
+      }
+    });
+    //-- Si la variable user no está asignada
+    //-- se devuelve null
+    return carrito || null;
+  }
+}
+
 //--Función para obtener la información del usuario
 function get_user(req) {
 
@@ -230,12 +260,16 @@ const server = http.createServer((req, res)=>{
             user = INDEX.replace("IDENTIFICARSE", "");
           }
           data = user;
+        }else if (recurso == 'alCarro.html'){
+        if (carrear == null) { //-- Si el carro está vacío
+          console.log("Prueba");
         }
-      
+        
         //-- Escribo la cabecera del mensaje y muestro la pagina solicitada
         res.setHeader('Content-Type', mimetype);
         res.write(data);
         res.end();
+      }
     });
 });
 

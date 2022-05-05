@@ -255,10 +255,13 @@ const server = http.createServer((req, res)=>{
             return res.end();
         }else if(petition == "./html/goldensupreme.html"){
             data = golden_supreme;
+            tipoProd = "Golden Supreme";
         }else if(petition == "./html/grannysmith.html"){
             data = granny_smith;
+            tipoProd = "Granny Smith";
         }else if(petition == "./html/reddelicious.html"){
             data = red_delicious;
+            tipoProd = "Red Delicious";
         }else if(petition == "./html/logueado.html"){
             data = user;
         }else if (petition == "./html/index.html"){
@@ -315,7 +318,7 @@ const server = http.createServer((req, res)=>{
           content_type = "application/json";
   
           //-- Leer los parámetros
-          let param1 = myURL.searchParams.get('param1');
+          let param1 = url.searchParams.get('param1');
   
           param1 = param1.toUpperCase();
   
@@ -342,7 +345,7 @@ const server = http.createServer((req, res)=>{
   
           return
       
-        } else if(myURL.pathname.startsWith('cliente.js')){
+        } else if(url.pathname.startsWith('cliente.js')){
           //-- Leer fichero javascript
           console.log("recurso: " + petition);
           fs.readFile(recurso, 'utf-8', (err,data) => {
@@ -360,7 +363,7 @@ const server = http.createServer((req, res)=>{
           return;
         }else if(petition == 'buscar'){
           //-- leer caja
-          let busqueda = myURL.searchParams.get('caja');
+          let busqueda = url.searchParams.get('caja');
           contType = 'application/javascript';
           console.log("Busqueda: " + busqueda);
           if (busqueda == "producto 1"){

@@ -208,6 +208,10 @@ const server = http.createServer((req, res)=>{
     let carrito = ALCARRO;
     let carro = "";
     let carrear = get_carrito(req);
+
+    let direccion = url.searchParams.get('direccion');
+    let tarjeta = url.searchParams.get('tarjeta');
+
       //-- Se guarda el tipo de recurso pedido, separando su nombre de la extension
       resource = petition.split(".")[1];
       //-- Se añade un punto para que el sistema pueda buscarlo y mostrarlo

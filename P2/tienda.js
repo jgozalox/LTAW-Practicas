@@ -25,8 +25,11 @@ const reddelicious = fs.readFileSync('html/reddelicious.html', 'utf-8');
 //--Formulario
 const FORMULARIO_LOGIN = fs.readFileSync('html/login.html','utf-8');
 
-//-- Respuesta login
+//--Respuesta login
 const RESPUESTA_LOGIN = fs.readFileSync('html/logueado.html','utf-8');
+
+//--Al carro
+const ALCARRO = fs.readFileSync('alCarro.html', 'utf-8');
 
 
 //--Funcion para imprimir información de la petición
@@ -196,6 +199,10 @@ const server = http.createServer((req, res)=>{
   }
   user = user.replace("HTML_EXTRA", html_extra);
   user = user.replace("HTML_EXTRA_CONDICION", html_extra_condicion);
+
+  let carrito = ALCARRO;
+  let carro = "";
+  let carrear = get_carrito(req);
 
     if (url.pathname == '/') {//-- Si se pide la pagina principal
       petition = "/html/index.html"

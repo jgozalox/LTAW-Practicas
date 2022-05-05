@@ -21,7 +21,15 @@
 <div style="overflow:auto">
   <div class="menu" id="navbar">
     <a href="/">Pagina principal</a>
-    <a href="#">Conocenos</a>
+    <a href="#">Conocenos
+      <div id="cajaBusqueda">
+        <form action="/buscar" method="get">
+            <input type="text" id="caja">
+            <input type="submit" value="Buscar"/>
+            <p id="display1"></p>
+        </form>
+    </div>
+    </a>
   </div>
 
   <div class="main">

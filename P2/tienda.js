@@ -230,7 +230,11 @@ const server = http.createServer((req, res)=>{
             user = INDEX.replace("IDENTIFICARSE", "");
           }
           data = user;
+        }else if (recurso == 'alCarro.html'){
+        if (carrear == null) { //-- Si el carro está vacío
+          //
         }
+        
       
         //-- Escribo la cabecera del mensaje y muestro la pagina solicitada
         res.setHeader('Content-Type', mimetype);

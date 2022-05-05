@@ -306,6 +306,72 @@ const server = http.createServer((req, res)=>{
           data = comprado;
   
         //-- BÚSQUEDA CON AUTOCOMPLETADO
+        }else if (petition.startsWith == 'productos') {
+          //-- Leer fichero JSON con los productos
+          const PRODUCTOS_JSON = fs.readFileSync('tienda.json');
+          //-- Obtener el array de productos
+          let productos = JSON.parse(PRODUCTOS_JSON);
+          console.log("Peticion de Productos!")
+          content_type = "application/json";
+  
+          //-- Leer los parámetros
+          let param1 = myURL.searchParams.get('param1');
+  
+          param1 = param1.toUpperCase();
+  
+          console.log("  Param: " +  param1);
+  
+          let result = [];
+  
+          for (let prod of productos) {
+  
+            //-- Pasar a mayúsculas
+            prodU = prod.toUpperCase();
+  
+            //-- Si el producto comienza por lo indicado en el parametro
+            //-- meter este producto en el array de resultados
+            if (prodU.startsWith(param1)) {
+                result.push(prod);
+            }
+              
+          }
+          console.log(result);
+          busqueda = result;
+          data = JSON.stringify(result);
+          contType = "application/json";
+  
+          return
+      
+        } else if(myURL.pathname.startsWith('cliente.js')){
+          //-- Leer fichero javascript
+          console.log("recurso: " + petition);
+          fs.readFile(recurso, 'utf-8', (err,data) => {
+              if (err) {
+                  console.log("Error: " + err)
+                  return;
+              } else {
+                res.setHeader('Content-Type', 'application/javascript');
+                contType = 'application/javascript';
+                res.writeHead(code, {'Content-Type': contType});
+                res.write(data);
+                res.end();
+              }
+          });
+          return;
+        }else if(petition == 'buscar'){
+          //-- leer caja
+          let busqueda = myURL.searchParams.get('caja');
+          contType = 'application/javascript';
+          console.log("Busqueda: " + busqueda);
+          if (busqueda == "producto 1"){
+            data = prod1;
+          } else if (busqueda == "producto 2"){
+            data = prod2;
+          } else if (busqueda == "producto 3"){
+            data = prod3;
+          }
+  
+        //-- Home
         }
       
         //-- Escribo la cabecera del mensaje y muestro la pagina solicitada

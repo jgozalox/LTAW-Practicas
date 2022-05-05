@@ -261,17 +261,9 @@ const server = http.createServer((req, res)=>{
           }
           data = user;
         }else if (recurso == 'alCarro.html'){
-        if (carrear == null) { //-- Si el carro está vacío
-<<<<<<< HEAD
-          //console.log("Prueba");
+        if (carrear == null) { //-- Si el carro está vacío 
+         console.log("Prueba")
         }
-        
-=======
-          //
-        }
-        
-      
->>>>>>> 5b5284d9c6ac6b3296ba6b78d07f874e6f3184ea
         //-- Escribo la cabecera del mensaje y muestro la pagina solicitada
         res.setHeader('Content-Type', mimetype);
         res.write(data);

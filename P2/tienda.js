@@ -261,7 +261,7 @@ const server = http.createServer((req, res)=>{
             user = INDEX.replace("IDENTIFICARSE", "");
           }
           data = user;
-        }else if (recurso == './html/alcarro.html'){
+        }else if (petition == './html/alcarro.html'){
         if (carrear == null) { //-- Si el carro está vacío 
          console.log("Prueba")
         }

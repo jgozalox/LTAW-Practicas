@@ -17,6 +17,9 @@ const tienda = JSON.parse(tienda_json);
 //--Pagina principal
 const INDEX = fs.readFileSync('html/index.html', 'utf-8');
 
+//-- Página para finalizar compra
+const COMPRA = fs.readFileSync('html/compra.html', 'utf-8');
+
 //--Alcarro
 const ALCARRO = fs.readFileSync('html/alcarro.html', 'utf-8');
 
@@ -126,14 +129,19 @@ const server = http.createServer((req, res)=>{
     //-- Valores de la respuesta por defecto
     let code = 200;
     let code_msg = "OK";
+    let petition = "";
+    let mimetype = 'text/html';
 
     //-- Construir el objeto url con la url de la solicitud
     const url = new URL(req.url, 'http://' + req.headers['host']);
     console.log("URL (del recurso solicitado): " + url.href)
     console.log("Ruta: ",url.pathname);
 
-    let petition = "";
-    let mimetype = 'text/html';
+    if (url.pathname == '/') {//-- Si se pide la pagina principal
+      petition = "/html/index.html"
+    }else {//-- Si se pide cualquier otra cosa
+        petition = url.pathname;
+    }
 
     let info;
     
@@ -192,6 +200,7 @@ const server = http.createServer((req, res)=>{
     html_extra = "<h2>Está registrad@</h2>";
     html_extra_condicion = "<h2>¡A comprar!</h2>";
     //-- Login correcto --> almaceno cookie
+    console.log("------------------------------",nombre_user);
     res.setHeader('Set-Cookie', "user=" + nombre_user);
   } else {
     html_extra = "<h2>Usuario y/o contraseña incorrectos!</h2>";
@@ -199,11 +208,7 @@ const server = http.createServer((req, res)=>{
   user = user.replace("HTML_EXTRA", html_extra);
   user = user.replace("HTML_EXTRA_CONDICION", html_extra_condicion);
 
-    if (url.pathname == '/') {//-- Si se pide la pagina principal
-      petition = "/html/index.html"
-    }else {//-- Si se pide cualquier otra cosa
-        petition = url.pathname;
-    }
+ 
 
     let carrito = ALCARRO;
     let carro = "";
@@ -264,14 +269,6 @@ const server = http.createServer((req, res)=>{
             tipoProd = "Red Delicious";
         }else if(petition == "./html/logueado.html"){
             data = user;
-        }else if (petition == "./html/index.html"){
-          if (user_cookie != undefined){
-            user = INDEX.replace("IDENTIFICARSE", ": " +user_cookie);
-            user = INDEX.replace("Login", " ")
-          }else{
-            user = INDEX.replace("IDENTIFICARSE", "");
-          }
-          data = user;
         }else if (petition == './html/alcarro.html'){
           if (carrear == null) { //-- Si el carro está vacío
             carro = tipoProd;
@@ -375,6 +372,9 @@ const server = http.createServer((req, res)=>{
           }
   
         //-- Home
+        }else if (petition == 'html/tienda.html'){
+          user = PAGINA_MAIN.replace("IDENTIFICARSE", user_cookie);
+          data = user;
         }
       
         //-- Escribo la cabecera del mensaje y muestro la pagina solicitada

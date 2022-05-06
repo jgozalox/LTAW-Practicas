@@ -95,8 +95,10 @@ function get_user(req) {
     
     //-- Si la variable user no está asignada
     //-- se devuelve null
+    console.log("------------------------------",user);
     return user || null;
 
+    
   }
 }
 

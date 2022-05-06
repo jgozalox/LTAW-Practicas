@@ -36,10 +36,10 @@
     {
     "pedidos":  [
                     {
-                        "nombre_usuario": "",
-                        "direccion_envio": "",
-                        "numero_tarjeta": "",
-                        "lista_productos": ""
+                        "nombre usuario": "",
+                        "dirección envío": "",
+                        "número de la tarjeta": "",
+                        "productos": ""
                     }
                 ]
     }

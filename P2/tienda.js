@@ -288,7 +288,7 @@ const server = http.createServer((req, res)=>{
             data = sinlogin;
           } else {
             let comprado;
-            comprado = COMPRA.replace("PRODUCTOS_COMPRADOS", carrear);
+            comprado = COMPRA.replace("Aun no hay productos en el carrito", carrear);
             data = comprado;
           }
         } if ((direccion != null) && (tarjeta != null)) {
@@ -303,7 +303,7 @@ const server = http.createServer((req, res)=>{
           let myPedido = JSON.stringify(tienda);
           fs.writeFileSync(FICHERO_JSON_OUT, myPedido);
           //-- Confirmar pedido
-          comprado = COMPRA_COMPLETADA.replace("PRODUCTOS_COMPRADOS", carrear);
+          comprado = COMPRA_COMPLETADA.replace("Aun no hay productos en el carrito", carrear);
           data = comprado;
   
         //-- BÚSQUEDA CON AUTOCOMPLETADO

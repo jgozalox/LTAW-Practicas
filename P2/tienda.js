@@ -372,8 +372,8 @@ const server = http.createServer((req, res)=>{
           }
   
         //-- Home
-        }else if (petition == 'html/tienda.html'){
-          user = PAGINA_MAIN.replace("IDENTIFICARSE", user_cookie);
+        }else if (petition == './html/index.html'){
+          user = INDEX.replace("IDENTIFICARSE", user_cookie);
           data = user;
         }
       
@@ -381,6 +381,7 @@ const server = http.createServer((req, res)=>{
         res.setHeader('Content-Type', mimetype);
         res.write(data);
         res.end();
+      
     });
 });
 

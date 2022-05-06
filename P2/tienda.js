@@ -8,6 +8,9 @@ const PUERTO = 9090;
 //-- Nombre del fichero JSON a leer
 const FICHERO_JSON = "json/tienda.json"
 
+//-- Nombre del fichero JSON a leer
+const FICHERO_JSON_OUT = "json/pedidos.json"
+
 //-- Leer el fichero JSON
 const tienda_json = fs.readFileSync(FICHERO_JSON);
 
@@ -299,8 +302,8 @@ const server = http.createServer((req, res)=>{
           }
           tienda[2]["pedidos"].push(pedido);
           //-- Pasarlo a JSON y almacenarlo en BD
-          let myPedido = JSON.stringify(tienda);
-          fs.writeFileSync(FICHERO_JSON_OUT, myPedido);
+          let pedidoTienda = JSON.stringify(tienda);
+          fs.writeFileSync(FICHERO_JSON_OUT, pedidoTienda);
           //-- Confirmar pedido
           comprado = COMPRA_COMPLETADA.replace("PRODUCTOS_COMPRADOS", carrear);
           data = comprado;

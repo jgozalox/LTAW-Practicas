@@ -26,6 +26,9 @@ const COMPRA = fs.readFileSync('html/compra.html', 'utf-8');
 //--Alcarro
 const ALCARRO = fs.readFileSync('html/alcarro.html', 'utf-8');
 
+//--Alcarro
+const COMPRA_COMPLETADA = fs.readFileSync('html/compracompletada.html', 'utf-8');
+
 //--Productos
 const goldensupreme = fs.readFileSync('html/goldensupreme.html', 'utf-8');
 const grannysmith = fs.readFileSync('html/grannysmith.html', 'utf-8');

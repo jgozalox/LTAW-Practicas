@@ -8,9 +8,6 @@ const PUERTO = 9090;
 //-- Nombre del fichero JSON a leer
 const FICHERO_JSON = "json/tienda.json"
 
-//-- Nombre del fichero JSON a leer
-const FICHERO_JSON_OUT = "json/pedidos.json"
-
 //-- Leer el fichero JSON
 const tienda_json = fs.readFileSync(FICHERO_JSON);
 
@@ -25,9 +22,6 @@ const COMPRA = fs.readFileSync('html/compra.html', 'utf-8');
 
 //--Alcarro
 const ALCARRO = fs.readFileSync('html/alcarro.html', 'utf-8');
-
-//--Alcarro
-const COMPRA_COMPLETADA = fs.readFileSync('html/compracompletada.html', 'utf-8');
 
 //--Productos
 const goldensupreme = fs.readFileSync('html/goldensupreme.html', 'utf-8');
@@ -196,12 +190,13 @@ const server = http.createServer((req, res)=>{
     //-- Entrega de formulario
     let user = FORMULARIO_LOGIN;
     let user_cookie = get_user(req);
-    let html_extra = "";
-    let html_extra_condicion = "";
-
+    
     //-- Reemplazar en "logueado.html"
   user = RESPUESTA_LOGIN.replace("NOMBRE", nombre_user);
   
+  let html_extra = "";
+    let html_extra_condicion = "";
+
   if (nombre_user == login1_BD && pass == pass1_BD || nombre_user == login2_BD && pass == pass2_BD) {
     html_extra = "<h2>Está registrad@</h2>";
     html_extra_condicion = "<h2>¡A comprar!</h2>";
@@ -305,8 +300,8 @@ const server = http.createServer((req, res)=>{
           }
           tienda[2]["pedidos"].push(pedido);
           //-- Pasarlo a JSON y almacenarlo en BD
-          let pedidoTienda = JSON.stringify(tienda);
-          fs.writeFileSync(FICHERO_JSON_OUT, pedidoTienda);
+          let myPedido = JSON.stringify(tienda);
+          fs.writeFileSync(FICHERO_JSON_OUT, myPedido);
           //-- Confirmar pedido
           comprado = COMPRA_COMPLETADA.replace("PRODUCTOS_COMPRADOS", carrear);
           data = comprado;

@@ -305,7 +305,6 @@ const server = http.createServer((req, res)=>{
             data = sinlogin;
           } else {
             let comprado;
-            console.log("------------------------->",carrear);
             let lista = get_productos(carrear);
             comprado = COMPRA.replace("Aun no hay productos en el carrito", lista);
             data = comprado;

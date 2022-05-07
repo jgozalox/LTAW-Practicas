@@ -121,18 +121,15 @@ function get_user(req) {
 
 function get_productos(carrear){
   let productosCarro = carrear.split(",");
-  let tamaño = productosCarro.length
+  let tamaño = productosCarro.length;
   let tiposProd = ["Golden Supreme",0, "Red Delicious",0, "Granny Smith",0];
   for (let i = 0; i < tamaño; i++) {
       if(productosCarro[i].includes("Golden Supreme")){
         tiposProd[1] = tiposProd[1]+1;
-        console.log("-------------------------------",tiposProd[1]);
-      }else if(productosCarro[i].includes("Red delicious")){
+      }else if(productosCarro[i].includes("Red Delicious")){
         tiposProd[3] = tiposProd[3]+1;
-        console.log(tiposProd[3]);
       }else if(productosCarro[i].includes("Granny Smith")){
         tiposProd[5] = tiposProd[5]+1;
-        console.log(tiposProd[5]);
       }
   }
 
@@ -308,8 +305,9 @@ const server = http.createServer((req, res)=>{
             data = sinlogin;
           } else {
             let comprado;
-            get_productos(carrear);
-            comprado = COMPRA.replace("Aun no hay productos en el carrito", carrear);
+            console.log("------------------------->",carrear);
+            let lista = get_productos(carrear);
+            comprado = COMPRA.replace("Aun no hay productos en el carrito", lista);
             data = comprado;
           }
         } if ((direccion != null) && (tarjeta != null)) {

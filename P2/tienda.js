@@ -119,6 +119,14 @@ function get_user(req) {
   }
 }
 
+function get_productos(carrear){
+  let productosCarro = carrear.split(",");
+  let tamaño = productosCarro.length
+  for (let i = 0; i < tamaño; i++) {
+      console.log(`Numero: ${i}`);
+  }
+}
+
 //--Creación del servidor
 const server = http.createServer((req, res)=>{
     console.log("Petición recibida!");
@@ -288,6 +296,7 @@ const server = http.createServer((req, res)=>{
             data = sinlogin;
           } else {
             let comprado;
+            get_productos(carrear);
             comprado = COMPRA.replace("Aun no hay productos en el carrito", carrear);
             data = comprado;
           }

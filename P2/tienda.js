@@ -122,9 +122,21 @@ function get_user(req) {
 function get_productos(carrear){
   let productosCarro = carrear.split(",");
   let tamaño = productosCarro.length
+  let tiposProd = ["Golden Supreme",0, "Red Delicious",0, "Granny Smith",0];
   for (let i = 0; i < tamaño; i++) {
-      console.log(`Numero: ${i}`);
+      if(productosCarro[i].includes("Golden Supreme")){
+        tiposProd[1] = tiposProd[1]+1;
+        console.log("-------------------------------",tiposProd[1]);
+      }else if(productosCarro[i].includes("Red delicious")){
+        tiposProd[3] = tiposProd[3]+1;
+        console.log(tiposProd[3]);
+      }else if(productosCarro[i].includes("Granny Smith")){
+        tiposProd[5] = tiposProd[5]+1;
+        console.log(tiposProd[5]);
+      }
   }
+
+  return tiposProd;
 }
 
 //--Creación del servidor

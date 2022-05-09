@@ -34,6 +34,7 @@ let identificadores = [];
 
 //--Color letras
 let colorLetras = "";
+let posUser = "";
 
 //-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
 //-- Definir el punto de entrada principal de mi aplicación web
@@ -53,6 +54,7 @@ app.use(express.static('public'));
 io.on('connect', (socket) => {
 
   colorLetras = "";
+  posUser = "";
 
   //--From http://stackoverflow.com/a/5365036/2065702
   let randomColor = "#"+((1<<24)*Math.random()|0).toString(16); 
@@ -73,7 +75,8 @@ io.on('connect', (socket) => {
      //--Almacenar en fichero json
      let identificador = { 
       socket_id: socket.id,
-      color: randomColor
+      color: randomColor,
+      usuaio: "undefined"
     }
   
   identificadores.push(identificador)
@@ -95,6 +98,13 @@ io.on('connect', (socket) => {
   //-- Mensaje recibido: Reenviarlo a todos los clientes conectados
   socket.on("message", (msg)=> {
 
+    for (let i = 0; i < identificadores.length; i++) {
+      if(identificadores[i]["socket_id"].includes(socket.id)){
+         colorLetras = identificadores[i]["color"];
+         posUser = i;
+      }
+     }
+
     h = fecha.getHours();
     m = fecha.getMinutes();
 
@@ -114,16 +124,13 @@ io.on('connect', (socket) => {
       socket.send(fecha.toDateString());
     } else if (msg.startsWith("/")) {
       socket.send("No se reconoce el comando");
+    }else if (msg.startsWith("USUARIO:")) {
+      identificadores[posUser]['usuario'] = msg.split(":")[1];
+      console.log(identificadores[posUser]['usuario']);
+      
     } else {
-        for (let i = 0; i < identificadores.length; i++) {
-         if(identificadores[i]["socket_id"].includes(socket.id)){
-            colorLetras = identificadores[i]["color"];
-         }
-        }
-   
-
       //-- Reenviarlo a todos los clientes conectados
-      msg = '<div class="mensaje">' + '<p id="nombreUsuario" style="color:' + colorLetras + ';">' + socket.id + '</p>' + msg + '</div> ' + '<span id="hora">' + hora + '</span>';
+      msg = '<div class="mensaje">' + '<p id="nombreUsuario" style="color:' + colorLetras + ';">' + identificadores[posUser]['usuario'] + '</p>' + msg + '</div> ' + '<span id="hora">' + hora + '</span>';
       console.log("Mensaje Recibido!: " + msg.blue);
       io.send(msg);
     }

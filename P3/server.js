@@ -15,8 +15,11 @@ const server = http.Server(app);
 //-- Crear el servidor de websockets, asociado al servidor http
 const io = socket(server);
 
-//--Numero de usuarios
+//-- Constante para la fecha
+const tiempo = Date.now();
+const fecha = new Date(tiempo);
 
+//--Numero de usuarios
 let numUsuarios = 0;
 
 //-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
@@ -70,7 +73,8 @@ io.on('connect', (socket) => {
     } else if (msg == "/hello") {
       socket.send("Hola, soy el servidor!");
     } else if (msg == "/date") {
-      socket.send("Fecha");
+      //--Fecha en formato cadena
+      socket.send(fecha.toDateString());
     } else if (msg.startsWith("/")) {
       socket.send("No se reconoce el comando");
     } else {

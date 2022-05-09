@@ -43,6 +43,8 @@ io.on('connect', (socket) => {
 
   //-- Mensaje de nuevo usuario conectado
   io.send("¡Nuevo usuario conectado!");
+  //-- Usuario conectado. Imprimir el identificador de su socket
+  console.log('Socket id: ' + socket.id);
 
   //-- Añadir un usuario
   numUsuarios = numUsuarios++;

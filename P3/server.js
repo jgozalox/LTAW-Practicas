@@ -17,13 +17,13 @@ const io = socket(server);
 
 //-- Constante para la fecha
 const tiempo = Date.now();
-const fecha = new Date(tiempo);
+let fecha = "";
+
+var h = "";
+var m = "";
 
 //--Numero de usuarios
 let numUsuarios = 0;
-
-var h = hoy.getHours();
-var m = hoy.getMinutes();
 
 //-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
 //-- Definir el punto de entrada principal de mi aplicación web
@@ -41,6 +41,8 @@ app.use(express.static('public'));
 //------------------- GESTION SOCKETS IO
 //-- Evento: Nueva conexion recibida
 io.on('connect', (socket) => {
+
+  fecha = new Date(tiempo);
   
   console.log('** NUEVA CONEXIÓN **'.yellow);
 
@@ -67,6 +69,11 @@ io.on('connect', (socket) => {
 
   //-- Mensaje recibido: Reenviarlo a todos los clientes conectados
   socket.on("message", (msg)=> {
+
+    h = fecha.getHours();
+    m = fecha.getMinutes();
+
+    let hora = h+':'+m;
     console.log("Mensaje Recibido!: " + msg.blue);
     if (msg == "/help"){
       socket.send("</p>" + "/help: Mostrará una lista con todos los comandos soportados" + "</p>" 
@@ -84,7 +91,7 @@ io.on('connect', (socket) => {
       socket.send("No se reconoce el comando");
     } else {
       //-- Reenviarlo a todos los clientes conectados
-      msg = '<div class="mensaje">' + msg + '</div>';
+      msg = '<div class="mensaje">' + msg + '</div> ' + hora;
       console.log("Mensaje Recibido!: " + msg.blue);
       io.send(msg);
     }

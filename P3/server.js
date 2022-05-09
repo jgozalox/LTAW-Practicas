@@ -15,6 +15,10 @@ const server = http.Server(app);
 //-- Crear el servidor de websockets, asociado al servidor http
 const io = socket(server);
 
+//--Numero de usuarios
+
+let numUsuarios = 0;
+
 //-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
 //-- Definir el punto de entrada principal de mi aplicación web
 app.get('/', (req, res) => {
@@ -34,9 +38,23 @@ io.on('connect', (socket) => {
   
   console.log('** NUEVA CONEXIÓN **'.yellow);
 
+  //-- Mensaje de nuevo usuario conectado
+  io.send("¡Nuevo usuario conectado!");
+
+  //-- Añadir un usuario
+  numUsuarios = numUsuarios++;
+  console.log("Número de usuarios: " + numUsuarios);
+
   //-- Evento de desconexión
   socket.on('disconnect', function(){
     console.log('** CONEXIÓN TERMINADA **'.yellow);
+
+    if (numUsuarios > 0){
+      numUsuarios = numUsuarios--;
+      console.log("Número de usuarios: " + numUsuarios);
+      //-- Mensaje de nuevo usuario desconectado
+      io.send("¡Usuario desconectado!");
+    }
   });  
 
   //-- Mensaje recibido: Reenviarlo a todos los clientes conectados
@@ -48,7 +66,7 @@ io.on('connect', (socket) => {
                          + "/hello: El servidor nos devolverá el saludo" + "</p>" 
                          +"/date: Nos devolverá la fecha" + "</p>");
     } else if (msg == "/list") {
-      socket.send("Número de usuarios conectados");
+      socket.send("Número de usuarios conectados: " + numUsuarios);
     } else if (msg == "/hello") {
       socket.send("Hola, soy el servidor!");
     } else if (msg == "/date") {

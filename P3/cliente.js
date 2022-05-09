@@ -6,16 +6,19 @@ const msg_entry = document.getElementById("msg_entry");
 const socket = io();
 
 
+//document.documentElement.style.setProperty('--main-bg-color', randomColor);
+
+
 socket.on("message", (msg)=>{
-  display.innerHTML += '<p style="color:blue">' + msg + '</p>';
+  display.innerHTML +=  "</p>" + msg;
 });
 
-
+    
 //-- Al apretar el botón se envía un mensaje al servidor
 msg_entry.onchange = () => {
   if (msg_entry.value)
     socket.send(msg_entry.value);
-  
+
   //-- Borrar el mensaje actual
   msg_entry.value = "";
 }

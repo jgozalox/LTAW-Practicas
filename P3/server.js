@@ -32,6 +32,9 @@ let numUsuarios = 0;
 //--Array identificadores
 let identificadores = [];
 
+//--Color letras
+let colorLetras = "";
+
 //-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
 //-- Definir el punto de entrada principal de mi aplicación web
 app.get('/', (req, res) => {
@@ -49,6 +52,9 @@ app.use(express.static('public'));
 //-- Evento: Nueva conexion recibida
 io.on('connect', (socket) => {
 
+  //--From http://stackoverflow.com/a/5365036/2065702
+  let randomColor = "#"+((1<<24)*Math.random()|0).toString(16); 
+    
   fecha = new Date(tiempo);
   
   console.log('** NUEVA CONEXIÓN **'.yellow);
@@ -62,6 +68,16 @@ io.on('connect', (socket) => {
   numUsuarios = numUsuarios++;
   console.log("Número de usuarios: " + numUsuarios);
 
+     //--Almacenar en fichero json
+     let identificador = { 
+      socket_id: socket.id,
+      color: randomColor
+    }
+  
+  identificadores.push(identificador)
+  let data = JSON.stringify(identificadores);
+  fs.writeFileSync(FICHERO_JSON_OUT, data);
+
   //-- Evento de desconexión
   socket.on('disconnect', function(){
     console.log('** CONEXIÓN TERMINADA **'.yellow);
@@ -72,24 +88,6 @@ io.on('connect', (socket) => {
       //-- Mensaje de nuevo usuario desconectado
       io.send("¡Usuario desconectado!");
     }
-
-    
-    //--From http://stackoverflow.com/a/5365036/2065702
-    let randomColor = "#"+((1<<24)*Math.random()|0).toString(16); 
-
-    //document.documentElement.style.setProperty('--main-bg-color', randomColor);
-
-
-    //--Almacenar en fichero json
-    let identificador = { 
-      socket_id: socket.id,
-      color: randomColor 
-    }
-  
-  identificadores.push(identificador)
-  let data = JSON.stringify(identificadores);
-  fs.writeFileSync(FICHERO_JSON_OUT, data);
-
   });  
 
   //-- Mensaje recibido: Reenviarlo a todos los clientes conectados
@@ -115,8 +113,21 @@ io.on('connect', (socket) => {
     } else if (msg.startsWith("/")) {
       socket.send("No se reconoce el comando");
     } else {
+
+      console.log("1");
+        for (let i = 0; i < identificadores.length; i++) {
+          console.log("2");
+          console.log(identificadores[i]["socket_id"]);
+          console.log(socket.id);
+         if(identificadores[i]["socket_id"].includes(socket.id)){
+          console.log("2");
+            console.log(identificadores[i]["color"]);
+         }
+        }
+   
+
       //-- Reenviarlo a todos los clientes conectados
-      msg = '<div class="mensaje">' + '<p id="nombreUsuario">' + socket.id + '</p>' + msg + '</div> ' + '<span id="hora">' + hora + '</span>';
+      msg = '<div class="mensaje">' + '<p id="nombreUsuario" style="color:blue;">' + socket.id + '</p>' + msg + '</div> ' + '<span id="hora">' + hora + '</span>';
       console.log("Mensaje Recibido!: " + msg.blue);
       io.send(msg);
     }

@@ -22,6 +22,9 @@ const fecha = new Date(tiempo);
 //--Numero de usuarios
 let numUsuarios = 0;
 
+var h = hoy.getHours();
+var m = hoy.getMinutes();
+
 //-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
 //-- Definir el punto de entrada principal de mi aplicación web
 app.get('/', (req, res) => {
@@ -81,6 +84,8 @@ io.on('connect', (socket) => {
       socket.send("No se reconoce el comando");
     } else {
       //-- Reenviarlo a todos los clientes conectados
+      msg = '<div class="mensaje">' + msg + '</div>';
+      console.log("Mensaje Recibido!: " + msg.blue);
       io.send(msg);
     }
   });

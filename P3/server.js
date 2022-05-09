@@ -52,6 +52,8 @@ app.use(express.static('public'));
 //-- Evento: Nueva conexion recibida
 io.on('connect', (socket) => {
 
+  colorLetras = "";
+
   //--From http://stackoverflow.com/a/5365036/2065702
   let randomColor = "#"+((1<<24)*Math.random()|0).toString(16); 
     
@@ -113,21 +115,15 @@ io.on('connect', (socket) => {
     } else if (msg.startsWith("/")) {
       socket.send("No se reconoce el comando");
     } else {
-
-      console.log("1");
         for (let i = 0; i < identificadores.length; i++) {
-          console.log("2");
-          console.log(identificadores[i]["socket_id"]);
-          console.log(socket.id);
          if(identificadores[i]["socket_id"].includes(socket.id)){
-          console.log("2");
-            console.log(identificadores[i]["color"]);
+            colorLetras = identificadores[i]["color"];
          }
         }
    
 
       //-- Reenviarlo a todos los clientes conectados
-      msg = '<div class="mensaje">' + '<p id="nombreUsuario" style="color:blue;">' + socket.id + '</p>' + msg + '</div> ' + '<span id="hora">' + hora + '</span>';
+      msg = '<div class="mensaje">' + '<p id="nombreUsuario" style="color:' + colorLetras + ';">' + socket.id + '</p>' + msg + '</div> ' + '<span id="hora">' + hora + '</span>';
       console.log("Mensaje Recibido!: " + msg.blue);
       io.send(msg);
     }

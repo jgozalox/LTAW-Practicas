@@ -8,6 +8,10 @@ const PUERTO = 9090;
 //-- Nombre del fichero JSON a leer
 const FICHERO_JSON = "json/tienda.json"
 
+//-- Nombre del fichero JSON a escribir
+const FICHERO_JSON_OUT = "json/pedidos.json"
+
+
 //-- Leer el fichero JSON
 const tienda_json = fs.readFileSync(FICHERO_JSON);
 
@@ -22,6 +26,10 @@ const COMPRA = fs.readFileSync('html/compra.html', 'utf-8');
 
 //--Alcarro
 const ALCARRO = fs.readFileSync('html/alcarro.html', 'utf-8');
+
+//--Compra completada
+const COMPRA_COMPLETADA = fs.readFileSync('html/compracompletada.html', 'utf-8');
+
 
 //--Productos
 const goldensupreme = fs.readFileSync('html/goldensupreme.html', 'utf-8');
@@ -306,7 +314,8 @@ const server = http.createServer((req, res)=>{
           } else {
             let comprado;
             let lista = get_productos(carrear);
-            comprado = COMPRA.replace("Aun no hay productos en el carrito", lista);
+            comprado = COMPRA_COMPLETADA.replace("Aun no hay productos en el carrito", lista);
+            comprado = COMPRA_COMPLETADA.replace("PRODUCTOS_COMPRADOS", lista);
             data = comprado;
           }
         } if ((direccion != null) && (tarjeta != null)) {

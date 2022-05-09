@@ -42,9 +42,20 @@ io.on('connect', (socket) => {
   //-- Mensaje recibido: Reenviarlo a todos los clientes conectados
   socket.on("message", (msg)=> {
     console.log("Mensaje Recibido!: " + msg.blue);
-
-    //-- Reenviarlo a todos los clientes conectados
-    io.send(msg);
+    if (msg == "/help"){
+      socket.send("Comandos soportados");
+    } else if (msg == "/list") {
+      socket.send("Número de usuarios conectados");
+    } else if (msg == "/hello") {
+      socket.send("Hola, soy el servidor!");
+    } else if (msg == "/date") {
+      socket.send("Fecha");
+    } else if (msg.startsWith("/")) {
+      socket.send("No se reconoce el comando");
+    } else {
+      //-- Reenviarlo a todos los clientes conectados
+      io.send(msg);
+    }
   });
 
 });

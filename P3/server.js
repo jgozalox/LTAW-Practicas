@@ -91,7 +91,7 @@ io.on('connect', (socket) => {
       socket.send("No se reconoce el comando");
     } else {
       //-- Reenviarlo a todos los clientes conectados
-      msg = '<div class="mensaje">' + msg + '</div> ' + hora;
+      msg = '<div class="mensaje">' + msg + '</div> ' + '<span id="hora">' + hora + '</span>';
       console.log("Mensaje Recibido!: " + msg.blue);
       io.send(msg);
     }

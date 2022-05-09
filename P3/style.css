@@ -1,6 +1,11 @@
 *{
     font: 12px/24px sans-serif;
     padding-left: 20px;
+    font-style: bold;
+}
+
+#hora{
+    font-style: oblique;
 }
 
 body{
@@ -28,6 +33,10 @@ body{
     resize: none;
 }
 
+#msg_entry:hover{
+    background: #f8f6f6;
+}
+
 #botonEnviar {
     width: 10%;
     padding: 10px 20px;
@@ -38,6 +47,9 @@ body{
     font-weight: bold;
 }
 
+#botonEnviar:hover{
+    background: #94a18c;
+}
 .mensaje{
     display:inline-block;
     padding: 10px 20px;

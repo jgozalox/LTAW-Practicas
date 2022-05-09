@@ -64,7 +64,7 @@ io.on('connect', (socket) => {
   console.log('** NUEVA CONEXIÓN **'.yellow);
 
   //-- Mensaje de nuevo usuario conectado
-  io.send("¡Nuevo usuario conectado!");
+  //io.send("¡Nuevo usuario conectado!");
   //-- Usuario conectado. Imprimir el identificador de su socket
   console.log('Socket id: ' + socket.id);
 
@@ -126,6 +126,8 @@ io.on('connect', (socket) => {
       socket.send("No se reconoce el comando");
     }else if (msg.startsWith("USUARIO:")) {
       identificadores[posUser]['usuario'] = msg.split(":")[1];
+      let cadena = "<p style='font-style: oblique;'>" + identificadores[posUser]['usuario'] + " se unió al chat" + "</p>";
+      io.send(cadena)
     } else {
       //-- Reenviarlo a todos los clientes conectados
       msg = '<div class="mensaje">' + '<p id="nombreUsuario" style="color:' + colorLetras + ';">' + identificadores[posUser]['usuario'] + '</p>' + msg + '</div> ' + '<span id="hora">' + hora + '</span>';

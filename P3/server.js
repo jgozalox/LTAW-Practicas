@@ -3,17 +3,21 @@ const socket = require('socket.io');
 const http = require('http');
 const express = require('express');
 const colors = require('colors');
+const fs = require('fs');
 
 const PUERTO = 8080;
 
 //-- Crear una nueva aplciacion web
 const app = express();
 
-//-- Crear un servidor, asosiaco a la App de express
+//-- Crear un servidor, asociado a la App de express
 const server = http.Server(app);
 
 //-- Crear el servidor de websockets, asociado al servidor http
 const io = socket(server);
+
+//-- Nombre del fichero JSON a escribir
+const FICHERO_JSON_OUT = "ids.json"
 
 //-- Constante para la fecha
 const tiempo = Date.now();
@@ -24,6 +28,9 @@ var m = "";
 
 //--Numero de usuarios
 let numUsuarios = 0;
+
+//--Array identificadores
+let identificadores = [];
 
 //-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
 //-- Definir el punto de entrada principal de mi aplicación web
@@ -65,10 +72,24 @@ io.on('connect', (socket) => {
       //-- Mensaje de nuevo usuario desconectado
       io.send("¡Usuario desconectado!");
     }
+
+    // From http://stackoverflow.com/a/5365036/2065702
+    //const randomColor = "#"+((1<<24)*Math.random()|0).toString(16); 
+
+    //document.documentElement.style.setProperty('--main-bg-color', randomColor);
   });  
 
   //-- Mensaje recibido: Reenviarlo a todos los clientes conectados
   socket.on("message", (msg)=> {
+
+    let identificador = { 
+      socket_id: socket.id,
+      color: 'X' 
+  };
+  
+  identificadores.push(identificador)
+  let data = JSON.stringify(identificadores);
+  fs.writeFileSync(FICHERO_JSON_OUT, data);
 
     h = fecha.getHours();
     m = fecha.getMinutes();
@@ -91,7 +112,7 @@ io.on('connect', (socket) => {
       socket.send("No se reconoce el comando");
     } else {
       //-- Reenviarlo a todos los clientes conectados
-      msg = '<div class="mensaje">' + msg + '</div> ' + '<span id="hora">' + hora + '</span>';
+      msg = '<div class="mensaje">' + '<p id="nombreUsuario">' + socket.id + '</p>' + msg + '</div> ' + '<span id="hora">' + hora + '</span>';
       console.log("Mensaje Recibido!: " + msg.blue);
       io.send(msg);
     }

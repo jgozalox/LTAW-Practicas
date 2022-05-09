@@ -8,6 +8,12 @@
     font-style: oblique;
 }
 
+#nombreUsuario{
+    font: 10px sans-serif;
+    padding-top: 2px;
+    color: var(--main-bg-color);
+}
+
 body{
 	margin: 0;
     width: 100%;

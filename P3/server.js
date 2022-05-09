@@ -43,7 +43,10 @@ io.on('connect', (socket) => {
   socket.on("message", (msg)=> {
     console.log("Mensaje Recibido!: " + msg.blue);
     if (msg == "/help"){
-      socket.send("Comandos soportados");
+      socket.send("</p>" + "/help: Mostrará una lista con todos los comandos soportados" + "</p>" 
+                         + "/list: Devolverá el número de usuarios conectados" + "</p>" 
+                         + "/hello: El servidor nos devolverá el saludo" + "</p>" 
+                         +"/date: Nos devolverá la fecha" + "</p>");
     } else if (msg == "/list") {
       socket.send("Número de usuarios conectados");
     } else if (msg == "/hello") {

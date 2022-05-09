@@ -31,7 +31,15 @@ body{
     bottom:10px;
 }
 
-#msg_entry {
+#botonEnviar{
+    visibility: hidden;
+}
+
+#msg_entry{
+    visibility: hidden;
+}
+
+.entradaTexto {
     width: 85%;
     padding: 10px 20px;
     border-radius: 5px;
@@ -39,11 +47,11 @@ body{
     resize: none;
 }
 
-#msg_entry:hover{
+.entradaTexto:hover{
     background: #f8f6f6;
 }
 
-#botonEnviar {
+.boton {
     width: 10%;
     padding: 10px 20px;
     border: none;
@@ -53,7 +61,7 @@ body{
     font-weight: bold;
 }
 
-#botonEnviar:hover{
+.botonEnviar:hover{
     background: #94a18c;
 }
 .mensaje{

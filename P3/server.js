@@ -126,8 +126,6 @@ io.on('connect', (socket) => {
       socket.send("No se reconoce el comando");
     }else if (msg.startsWith("USUARIO:")) {
       identificadores[posUser]['usuario'] = msg.split(":")[1];
-      console.log(identificadores[posUser]['usuario']);
-      
     } else {
       //-- Reenviarlo a todos los clientes conectados
       msg = '<div class="mensaje">' + '<p id="nombreUsuario" style="color:' + colorLetras + ';">' + identificadores[posUser]['usuario'] + '</p>' + msg + '</div> ' + '<span id="hora">' + hora + '</span>';

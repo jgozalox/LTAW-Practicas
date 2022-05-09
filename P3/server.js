@@ -73,23 +73,27 @@ io.on('connect', (socket) => {
       io.send("¡Usuario desconectado!");
     }
 
-    // From http://stackoverflow.com/a/5365036/2065702
-    //const randomColor = "#"+((1<<24)*Math.random()|0).toString(16); 
+    
+    //--From http://stackoverflow.com/a/5365036/2065702
+    let randomColor = "#"+((1<<24)*Math.random()|0).toString(16); 
 
     //document.documentElement.style.setProperty('--main-bg-color', randomColor);
-  });  
 
-  //-- Mensaje recibido: Reenviarlo a todos los clientes conectados
-  socket.on("message", (msg)=> {
 
+    //--Almacenar en fichero json
     let identificador = { 
       socket_id: socket.id,
-      color: 'X' 
-  };
+      color: randomColor 
+    }
   
   identificadores.push(identificador)
   let data = JSON.stringify(identificadores);
   fs.writeFileSync(FICHERO_JSON_OUT, data);
+
+  });  
+
+  //-- Mensaje recibido: Reenviarlo a todos los clientes conectados
+  socket.on("message", (msg)=> {
 
     h = fecha.getHours();
     m = fecha.getMinutes();

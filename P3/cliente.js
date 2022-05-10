@@ -1,5 +1,6 @@
 //-- Elementos del interfaz
 const display = document.getElementById("display");
+const mensajesRecibidos = document.getElementById("mensajesRecibidos");
 const msg_entry = document.getElementById("msg_entry");
 const sendUser = document.getElementById("sendUser");
 const botonEnviar = document.getElementById("botonEnviar");
@@ -10,7 +11,12 @@ const socket = io();
 
 
 socket.on("message", (msg)=>{
-  display.innerHTML +=  "</p>" + msg;
+  
+  if(msg.includes("Usuarios chat:")){
+    mensajesRecibidos.innerHTML +=  "</p>" + msg.split("////")[0];
+  }else{
+    display.innerHTML +=  "</p>" + msg.split("////")[0];
+  }
 });
 
 

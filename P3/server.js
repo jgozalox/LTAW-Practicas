@@ -143,12 +143,13 @@ io.on('connect', (socket) => {
       io.send(cadena)
       let usuariosActivos = "<p style='font-style: oblique;'> Usuarios chat: ";
       for (let i = 0; i < identificadores.length; i++) {
-        if(i==(identificadores.length-1)){
-          usuariosActivos +=   identificadores[i]['usuario'];
-        }else{
-          usuariosActivos +=   identificadores[i]['usuario'] + ", ";
+        if( (identificadores[i]['usuario']) != undefined){
+          if(i==(identificadores.length-1)){
+            usuariosActivos +=   identificadores[i]['usuario'];
+          }else{
+            usuariosActivos +=   identificadores[i]['usuario'] + ", ";
+          }
         }
-        
       }  
       usuariosActivos += "</p>";
       io.send(usuariosActivos)

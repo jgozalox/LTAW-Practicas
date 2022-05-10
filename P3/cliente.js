@@ -13,7 +13,7 @@ const socket = io();
 socket.on("message", (msg)=>{
   
   if(msg.includes("Usuarios chat:")){
-    mensajesRecibidos.innerHTML +=  "</p>" + msg.split("////")[0];
+    mensajesRecibidos.innerHTML =  "</p>" + msg.split("////")[0];
   }else{
     display.innerHTML +=  "</p>" + msg.split("////")[0];
   }

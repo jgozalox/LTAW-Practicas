@@ -8,6 +8,15 @@
     font-style: oblique;
 }
 
+#mensajesRecibidos{
+    width: 85%;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid rgb(117, 128, 117);
+    background-color: rgb(203, 220, 177);
+    resize: none;
+}
+
 #nombreUsuario{
     font: 10px sans-serif;
     padding-top: 2px;

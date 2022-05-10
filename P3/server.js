@@ -56,8 +56,14 @@ io.on('connect', (socket) => {
   colorLetras = "";
   posUser = "";
 
+  var letters = '0123456789ABCD';
+  var randomColor = '#';
+  for (var i = 0; i < 6; i++) {
+    randomColor += letters[Math.floor(Math.random() * 16)];
+  }
+
   //--From http://stackoverflow.com/a/5365036/2065702
-  let randomColor = "#"+((1<<24)*Math.random()|0).toString(16); 
+  randomColor = "#"+((1<<24)*Math.random()|0).toString(16); 
     
   fecha = new Date(tiempo);
   
@@ -128,9 +134,20 @@ io.on('connect', (socket) => {
       identificadores[posUser]['usuario'] = msg.split(":")[1];
       let cadena = "<p style='font-style: oblique;'>" + identificadores[posUser]['usuario'] + " se unió al chat" + "</p>";
       io.send(cadena)
+      let usuariosActivos = "<p style='font-style: oblique;'> Usuarios chat: ";
+      for (let i = 0; i < identificadores.length; i++) {
+        if(i==(identificadores.length-1)){
+          usuariosActivos +=   identificadores[i]['usuario'];
+        }else{
+          usuariosActivos +=   identificadores[i]['usuario'] + ", ";
+        }
+        
+      }  
+      usuariosActivos += "</p>";
+      io.send(usuariosActivos)
     } else {
       //-- Reenviarlo a todos los clientes conectados
-      msg = '<div class="mensaje">' + '<p id="nombreUsuario" style="color:' + colorLetras + ';">' + identificadores[posUser]['usuario'] + '</p>' + msg + '</div> ' + '<span id="hora">' + hora + '</span>';
+      msg = '<div class="mensaje">' + '<p id="nombreUsuario" style="color:' + colorLetras + ';font-weight: bolder;">' + identificadores[posUser]['usuario'] + '</p>' + msg + '</div> ' + '<span id="hora">' + hora + '</span>';
       console.log("Mensaje Recibido!: " + msg.blue);
       io.send(msg);
     }

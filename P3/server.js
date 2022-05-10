@@ -112,9 +112,16 @@ io.on('connect', (socket) => {
      }
 
     h = fecha.getHours();
+    if (h < 10){
+      h = "0" + h;
+    }
+
+    if (m < 10){
+      m = "0" + m;
+    }
     m = fecha.getMinutes();
 
-    let hora = h+':'+m;
+    let hora = h+':'+ m;
     console.log("Mensaje Recibido!: " + msg.blue);
     if (msg == "/help"){
       socket.send("</p>" + "/help: Mostrará una lista con todos los comandos soportados" + "</p>" 

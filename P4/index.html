@@ -4,11 +4,55 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi APP (version 5)</title>
+
+    <!-- Only scripts and files from the local machine are allowed -->
+    <!-- It removes the security Warning: Insecure Content-Security-Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self';" />
+
+    <link rel="stylesheet" href="index.css">
+
+    <!-- Cargar la biblioteca Socket.IO. Nos la debe entregar el servidor -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- Cargar el proceso asociado a esta página -->
+    <script src="index.js" defer></script>
+
+    <title>Chat Server</title>
 </head>
 <body>
-    <h1>INTERFAZ GRÁFICA</h1>
-   <input type="button" value="Test" id="btn_test">
-    <p>Display</p>
+    <h1>HOME CHAT</h1>
+    
+    <div id="info_css">
+        <h2>INFORMACIÓN DEL SISTEMA</h2>
+        <ul>
+            <li>Versión de Node: <span id="info1"></span> </li>
+            <li>Versión de Electron: <span id="info2"></span></li>
+            <li>Versión de Chrome: <span id="info3"></span></li>
+            <li>Arquitectura: <span id="info4"></span> </li>
+            <li>Plataforma: <span id="info5"></span></li>
+            <li>Versión del Sistema: <span id="info6"></span></li>
+            <li>Tipo de proceso actual: <span id="info7"></span></li>
+        </ul>
+    
+        <h2>Usuarios conectados:</h2>
+        <ul>
+            <span id="infoUSERS"></span>
+        </ul>
+    
+        <h2>Dirección IP:</h2>
+        <ul>
+            <span id="infoIP"></span>
+        </ul>    
+    
+        <hr>
+    </div>
+    
+    <div id="msgs_css">
+        <h2>Pruebas</p>
+        <p>   <input type="button" value="Enviar Mensaje de prueba" id="btn_test"> </p>
+        <p>Mensajes:</p>
+        <p id="display"></p>
+    </div>
+
 </body>
 </html>

@@ -82,7 +82,7 @@ io.on('connect', (socket) => {
      let identificador = { 
       socket_id: socket.id,
       color: randomColor,
-      usuaio: "undefined"
+      usuario: "undefined"
     }
   
   identificadores.push(identificador)

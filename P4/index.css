@@ -1,21 +1,41 @@
+*{
+    font-style: bold;
+    font: sans-serif;
+}
+
 h1 {
     width: auto;
     padding: 20px;
-    background-color: rgb(46, 148, 46);
+    background-color: rgb(203, 220, 177);
     border-radius: 2px;
     text-align: center;
     border-style: solid;
   }
 
-.blue {
-    color: blue;
-}
 
-
+  
 #display {
     border: 2px solid lightblue;
     padding: 10px;
     overflow-x: scroll;
+}
+
+
+.blue {
+    color: rgb(26, 5, 141);
+}
+
+#infoIP {
+    font-size: 18px;
+}
+
+#msgs_css {
+    background-color: white;
+    border-radius: 2px;
+    border-style: solid;
+    width: 58%;
+    display: inline-block;
+    margin-left: 4px;  
 }
 
 #info_css {
@@ -28,19 +48,6 @@ h1 {
     margin-left: 3px;
     padding: 4px;
     font-size: 15px;
-}
-
-#msgs_css {
-    background-color: white;
-    border-radius: 2px;
-    border-style: solid;
-    width: 58%;
-    display: inline-block;
-    margin-left: 4px;  
-}
-
-#infoIP {
-    font-size: 18px;
 }
 
 #infoUSERS {

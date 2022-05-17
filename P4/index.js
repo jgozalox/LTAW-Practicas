@@ -17,6 +17,7 @@ const infoUSERS = document.getElementById("infoUSERS");
 const print = document.getElementById("print");
 let msg_prueba = 1;
 
+infoUSERS.innerHTML = "0";
 
 //-- Acceder a la API de node para obtener la info
 //-- Sólo es posible si nos han dado permisos desde

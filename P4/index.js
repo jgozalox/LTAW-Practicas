@@ -17,9 +17,7 @@ const accesoChat = document.getElementById("accesoChat");
 const infoUSERS = document.getElementById("infoUSERS");
 const print = document.getElementById("print");
 let msg_prueba = 1;
-//-- Inicializar variable número de usuarios
-let num_users = 0;
-infoUSERS.innerHTML = num_users;
+
 
 //-- Acceder a la API de node para obtener la info
 //-- Sólo es posible si nos han dado permisos desde

@@ -74,7 +74,7 @@ io.on('connect', (socket) => {
     
   fecha = new Date(tiempo);
   
-  console.log('** NUEVA CONEXIÓN **'.yellow);
+  console.log('** NUEVA CONEXION **'.yellow);
 
   //-- Mensaje de nuevo usuario conectado
   //io.send("¡Nuevo usuario conectado!");
@@ -82,8 +82,11 @@ io.on('connect', (socket) => {
   console.log('Socket id: ' + socket.id);
 
   //-- Añadir un usuario
-  numUsuarios = numUsuarios++;
-  console.log("Número de usuarios: " + numUsuarios);
+  numUsuarios = numUsuarios + 1;
+  console.log("Numero de usuarios: " + numUsuarios);
+
+  //Enviar a la ventana (index.js)
+  win.webContents.send('infoUSERS',numUsuarios);
 
      //--Almacenar en fichero json
      let identificador = { 
@@ -98,7 +101,7 @@ io.on('connect', (socket) => {
 
   //-- Evento de desconexión
   socket.on('disconnect', function(){
-    console.log('** CONEXIÓN TERMINADA **'.yellow);
+    console.log('** CONEXION TERMINADA **'.yellow);
 
     if (numUsuarios > 0){
       numUsuarios = numUsuarios--;

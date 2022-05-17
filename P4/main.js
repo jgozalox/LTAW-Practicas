@@ -150,6 +150,7 @@ io.on('connect', (socket) => {
     }else if (msg.startsWith("USUARIO:")) {
       identificadores[posUser]['usuario'] = msg.split(":")[1];
       let cadena = "<p style='font-style: oblique;'>" + identificadores[posUser]['usuario'] + " se unió al chat" + "</p>";
+      win.webContents.send('msgs',cadena);
       io.send(cadena)
       let usuariosActivos = "<p style='font-style: oblique;'> Usuarios chat: ";
       for (let i = 0; i < identificadores.length; i++) {

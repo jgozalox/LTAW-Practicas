@@ -3,7 +3,6 @@ const electron = require('electron');
 console.log("Desde el proceso de la web...");
 
 //-- Obtener elementos de la interfaz
-const btn_test = document.getElementById("btn_test");
 const display = document.getElementById("display");
 const info1 = document.getElementById("info1");
 const info2 = document.getElementById("info2");
@@ -30,13 +29,6 @@ info5.textContent = process.platform;
 info6.textContent = process.getSystemVersion();
 info7.textContent = process.type;
 
-
-btn_test.onclick = () => {
-    display.innerHTML += "Mensaje recibido " + msg_prueba + "...<p></p>";
-    msg_prueba = msg_prueba + 1;
-    console.log("Botón apretado!");
-}
-
 //-- Mensaje recibido del proceso MAIN
 electron.ipcRenderer.on('print', (event, message) => {
     console.log("Recibido: " + message);
@@ -47,7 +39,7 @@ electron.ipcRenderer.on('print', (event, message) => {
 //-- Mensaje recibido del proceso MAIN para IP
 electron.ipcRenderer.on('ip', (event, message) => {
     console.log("IP: " + message);
-    infoIP.href = message;
+    infoIP.innerHTML = message;
     accesoChat.href = message;
 });
 

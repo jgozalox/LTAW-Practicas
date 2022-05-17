@@ -1,0 +1,84 @@
+*{
+    font: 12px/24px sans-serif;
+    padding-left: 20px;
+    font-style: bold;
+}
+
+#hora{
+    font-style: oblique;
+}
+
+#mensajesRecibidos{
+    width: 85%;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid rgb(117, 128, 117);
+    background-color: rgb(203, 220, 177);
+    resize: none;
+}
+
+#nombreUsuario{
+    font: 10px sans-serif;
+    padding-top: 2px;
+    color: var(--main-bg-color);
+}
+
+body{
+	margin: 0;
+    width: 100%;
+    background-color: rgb(148, 184, 94);
+}
+
+#mensajesRecibidos{
+    padding-left: 10px;
+}
+
+.input{
+    position: fixed;
+    left:10px;
+    right:10px;
+    bottom:10px;
+}
+
+#botonEnviar{
+    visibility: hidden;
+}
+
+#msg_entry{
+    visibility: hidden;
+}
+
+.entradaTexto {
+    width: 85%;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid green;
+    resize: none;
+}
+
+.entradaTexto:hover{
+    background: #f8f6f6;
+}
+
+.boton {
+    width: 10%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background: #aab6a3;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.botonEnviar:hover{
+    background: #94a18c;
+}
+.mensaje{
+    display:inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: aliceblue;
+    border: 1px solid green;
+    resize: none;
+    margin-bottom: 10px;
+}

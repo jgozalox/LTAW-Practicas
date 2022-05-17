@@ -167,7 +167,8 @@ io.on('connect', (socket) => {
       //-- Reenviarlo a todos los clientes conectados
       
         msg = '<div class="mensaje">' + '<p id="nombreUsuario" style="color:' + colorLetras + ';font-weight: bolder;">' + identificadores[posUser]['usuario'] + '</p>' + msg + '</div> ' + '<span id="hora">' + hora + '</span>' + " ////" + socket.id;
-      
+        //Enviar a la ventana (index.js)
+        win.webContents.send('msgs',msg);
       
       console.log("Mensaje Recibido!: " + msg.blue);
       io.send(msg);

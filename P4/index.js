@@ -56,3 +56,9 @@ electron.ipcRenderer.on('infoUSERS', (event, message) => {
     console.log("Usuarios: " + message);
     infoUSERS.innerHTML = message;
 });
+
+//-- Mensaje recibido del proceso MAIN para mensajes
+electron.ipcRenderer.on('msgs', (event, message) => {
+    console.log("Mensaje: " + message);
+    display.innerHTML += message;
+});

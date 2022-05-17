@@ -166,12 +166,13 @@ io.on('connect', (socket) => {
     } else {
       //-- Reenviarlo a todos los clientes conectados
       
-        msg = '<div class="mensaje">' + '<p id="nombreUsuario" style="color:' + colorLetras + ';font-weight: bolder;">' + identificadores[posUser]['usuario'] + '</p>' + msg + '</div> ' + '<span id="hora">' + hora + '</span>' + " ////" + socket.id;
+        
         //Enviar a la ventana (index.js)
-        win.webContents.send('msgs',msg);
-      
-      console.log("Mensaje Recibido!: " + msg.blue);
-      io.send(msg);
+        msgForApp = '<p id="nombreUsuario" style="color:' + colorLetras + ';font-weight: bolder;">' + identificadores[posUser]['usuario'] + ":" + msg + "(" + hora + ")</p>";
+        win.webContents.send('msgs',msgForApp);
+        msg = '<div class="mensaje">' + '<p id="nombreUsuario" style="color:' + colorLetras + ';font-weight: bolder;">' + identificadores[posUser]['usuario'] + '</p>' + msg + '</div> ' + '<span id="hora">' + hora + '</span>' + " ////" + socket.id;
+        console.log("Mensaje Recibido!: " + msgForApp.blue);
+        io.send(msg);
     }
   });
 

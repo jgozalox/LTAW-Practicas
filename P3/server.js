@@ -103,7 +103,7 @@ io.on('connect', (socket) => {
 
   //-- Mensaje recibido: Reenviarlo a todos los clientes conectados
   socket.on("message", (msg)=> {
-
+    let banderaSocketId = socket.id;
     for (let i = 0; i < identificadores.length; i++) {
       if(identificadores[i]["socket_id"].includes(socket.id)){
          colorLetras = identificadores[i]["color"];
@@ -155,7 +155,10 @@ io.on('connect', (socket) => {
       io.send(usuariosActivos)
     } else {
       //-- Reenviarlo a todos los clientes conectados
-      msg = '<div class="mensaje">' + '<p id="nombreUsuario" style="color:' + colorLetras + ';font-weight: bolder;">' + identificadores[posUser]['usuario'] + '</p>' + msg + '</div> ' + '<span id="hora">' + hora + '</span>' + " ////" + socket.id;
+      
+        msg = '<div class="mensaje">' + '<p id="nombreUsuario" style="color:' + colorLetras + ';font-weight: bolder;">' + identificadores[posUser]['usuario'] + '</p>' + msg + '</div> ' + '<span id="hora">' + hora + '</span>' + " ////" + socket.id;
+      
+      
       console.log("Mensaje Recibido!: " + msg.blue);
       io.send(msg);
     }

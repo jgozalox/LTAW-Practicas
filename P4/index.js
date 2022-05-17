@@ -13,6 +13,7 @@ const info5 = document.getElementById("info5");
 const info6 = document.getElementById("info6");
 const info7 = document.getElementById("info7");
 const infoIP = document.getElementById("infoIP");
+const accesoChat = document.getElementById("accesoChat");
 const infoUSERS = document.getElementById("infoUSERS");
 const print = document.getElementById("print");
 let msg_prueba = 1;
@@ -48,7 +49,8 @@ electron.ipcRenderer.on('print', (event, message) => {
 //-- Mensaje recibido del proceso MAIN para IP
 electron.ipcRenderer.on('ip', (event, message) => {
     console.log("IP: " + message);
-    infoIP.innerHTML = message;
+    infoIP.href = message;
+    accesoChat.href = message;
 });
 
 //-- Mensaje recibido del proceso MAIN para USUARIOS
